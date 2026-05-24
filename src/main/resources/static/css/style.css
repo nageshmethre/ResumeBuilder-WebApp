@@ -1,0 +1,169 @@
+/* Custom properties for theme colors */
+:root {
+    --primary: #2980b9;
+    --primary-dark: #1f618d;
+    --secondary: #2c3e50;
+    --bg-light: #f8f9fa;
+    --bg-card: #ffffff;
+    --text-main: #333333;
+    --text-muted: #7f8c8d;
+    --border-color: #e2e8f0;
+}
+
+[data-theme="dark"] {
+    --primary: #3498db;
+    --primary-dark: #2980b9;
+    --secondary: #ecf0f1;
+    --bg-light: #121212;
+    --bg-card: #1e1e1e;
+    --text-main: #f5f6fa;
+    --text-muted: #bdc3c7;
+    --border-color: #2d3748;
+}
+
+body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    color: var(--text-main);
+    background-color: var(--bg-light);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Landing Page Hero styles */
+.hero-section {
+    background: linear-gradient(135deg, #2c3e50 0%, #1a5276 100%);
+    color: white;
+    padding: 100px 0;
+}
+
+.hero-btn {
+    padding: 12px 30px;
+    font-weight: 600;
+}
+
+/* Form Styles */
+.form-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.form-control, .form-select {
+    background-color: var(--bg-card);
+    border-color: var(--border-color);
+    color: var(--text-main);
+}
+
+.form-control:focus, .form-select:focus {
+    background-color: var(--bg-card);
+    color: var(--text-main);
+    border-color: var(--primary);
+    box-shadow: 0 0 0 0.25rem rgba(41, 128, 185, 0.25);
+}
+
+/* Dashboard sidebar */
+.sidebar {
+    min-height: 100vh;
+    background-color: var(--secondary);
+    color: white;
+}
+
+.sidebar a {
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
+    padding: 12px 20px;
+    display: block;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+.sidebar a:hover, .sidebar a.active {
+    background-color: var(--primary);
+    color: white;
+}
+
+/* Workspace Split Layout */
+.workspace-container {
+    height: calc(100vh - 56px); /* minus navbar height */
+}
+
+.form-editor {
+    height: 100%;
+    overflow-y: auto;
+    padding: 24px;
+}
+
+.preview-pane {
+    height: 100%;
+    overflow-y: auto;
+    background-color: #cbd5e1;
+    padding: 30px;
+}
+
+/* Resume A4 Layout visual mock */
+.resume-paper {
+    background-color: white;
+    color: #333333;
+    width: 210mm;
+    min-height: 297mm;
+    padding: 20mm;
+    margin: 0 auto;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    box-sizing: border-box;
+}
+
+/* Resume Template styling inside visual preview */
+.resume-paper h1 {
+    font-size: 26px;
+    color: #1a5276;
+    margin-bottom: 2px;
+}
+
+.resume-paper .contact-line {
+    font-size: 11px;
+    color: #666666;
+    margin-bottom: 20px;
+    border-bottom: 1.5px solid #2980b9;
+    padding-bottom: 8px;
+}
+
+.resume-paper h2 {
+    font-size: 14px;
+    color: #2980b9;
+    margin-top: 15px;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 4px;
+}
+
+.resume-paper .item-title {
+    font-weight: 700;
+    font-size: 12px;
+}
+
+.resume-paper .item-meta {
+    font-style: italic;
+    color: #7f8c8d;
+    font-size: 11px;
+}
+
+.resume-paper p, .resume-paper li {
+    font-size: 11.5px;
+    line-height: 1.4;
+    margin-bottom: 6px;
+}
+
+/* Responsive constraints */
+@media (max-width: 1200px) {
+    .resume-paper {
+        width: 100%;
+        min-height: auto;
+        padding: 15px;
+    }
+    
+    .workspace-container {
+        height: auto;
+    }
+}

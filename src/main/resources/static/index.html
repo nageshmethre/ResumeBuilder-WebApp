@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Resume Builder</title>
+    <!-- Google Fonts & Bootstrap 5 -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="/">ResumeBuilder</a>
+            <button class="navbar-expand-toggle d-lg-none border-0 bg-transparent text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto" id="nav-auth-links">
+                    <li class="nav-item"><a class="nav-link" href="/login.html">Login</a></li>
+                    <li class="nav-item"><a class="btn btn-outline-light ms-2" href="/register.html">Sign Up</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section text-center">
+        <div class="container">
+            <h1 class="display-4 fw-bold mb-3">Build a Professional Resume in Minutes</h1>
+            <p class="lead mb-4">Create, edit, and download clean, structured, job-ready resumes instantly. Optimized for recruiters and ATS.</p>
+            <a href="/login.html" id="hero-cta" class="btn btn-primary btn-lg hero-btn shadow">Get Started for Free</a>
+        </div>
+    </section>
+
+    <!-- Core Features Section -->
+    <section class="container my-5 py-4">
+        <h2 class="text-center fw-bold mb-5">Features Engineered for Success</h2>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 p-4 border-0 shadow-sm text-center">
+                    <div class="mb-3 text-primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-file-earmark-person" viewBox="0 0 16 16">
+                            <path d="M11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                            <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
+                        </svg>
+                    </div>
+                    <h4 class="fw-bold">Easy Section Customization</h4>
+                    <p class="text-muted mb-0">Fill in your information section by section. Add or remove items dynamically to suit your career experience.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 p-4 border-0 shadow-sm text-center">
+                    <div class="mb-3 text-primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+                            <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 4 8 4s3.879.668 5.168 1.957A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12 8 12s-3.879-.668-5.168-1.957A13.134 13.134 0 0 1 1.172 8z"/>
+                            <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+                        </svg>
+                    </div>
+                    <h4 class="fw-bold">Instant Live Preview</h4>
+                    <p class="text-muted mb-0">Watch your resume adapt and align automatically on your screen as you type in the editor.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 p-4 border-0 shadow-sm text-center">
+                    <div class="mb-3 text-primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-file-earmark-pdf" viewBox="0 0 16 16">
+                            <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
+                            <path d="M8.643 9c.18 0 .342-.09.435-.24.131-.203.24-.467.31-.762.073-.308.117-.656.125-1.015.008-.337-.02-.659-.092-.931-.072-.277-.184-.495-.342-.622a.442.442 0 0 0-.254-.08c-.18 0-.342.09-.435.24-.131.203-.24.467-.31.762-.073.308-.117.656-.125 1.015-.008.337.02.659.092.931.072.277.184.495.342.622.062.05.15.08.254.08z"/>
+                            <path d="M10.067 10.135c.137.054.269.094.392.12.185.04.385.068.592.068.543 0 .914-.306.914-.827 0-.588-.476-.922-1.251-.922a4.46 4.46 0 0 0-.616.039c-.173.29-.385.673-.615 1.1-.137.253-.284.53-.435.823.188.083.398.17.618.259.138.056.273.105.397.143zm-3.87 1.359c.143-.377.308-.85.474-1.393a11.968 11.968 0 0 0-.825-.398c-.282-.12-.572-.218-.854-.293a2.502 2.502 0 0 0-.22.613c-.06.289-.04.532.06.68.109.162.33.24.636.24.288 0 .543-.095.729-.249z"/>
+                        </svg>
+                    </div>
+                    <h4 class="fw-bold">Export to PDF</h4>
+                    <p class="text-muted mb-0">Generate a clean, standard A4 PDF document programmatically from our servers with a single click.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-4">
+        <div class="container">
+            <p class="mb-0">&copy; 2026 ResumeBuilder. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JS dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Inline check for navigation state based on login status
+        document.addEventListener('DOMContentLoaded', () => {
+            const token = localStorage.getItem('token');
+            if (token) {
+                const navLinks = document.getElementById('nav-auth-links');
+                const heroCta = document.getElementById('hero-cta');
+                
+                navLinks.innerHTML = `
+                    <li class="nav-item"><a class="nav-link" href="/dashboard.html">Dashboard</a></li>
+                    <li class="nav-item"><a class="btn btn-outline-light ms-2" href="#" id="logout-btn">Logout</a></li>
+                `;
+                
+                if (heroCta) {
+                    heroCta.innerText = 'Go to Dashboard';
+                    heroCta.setAttribute('href', '/dashboard.html');
+                }
+                
+                document.getElementById('logout-btn').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    localStorage.clear();
+                    window.location.reload();
+                });
+            }
+        });
+    </script>
+</body>
+</html>
