@@ -3,8 +3,8 @@ package com.resumebuilder.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "skills")
-public class Skill {
+@Table(name = "interests")
+public class Interest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -16,10 +16,7 @@ public class Skill {
     @Column(nullable = false)
     private String name;
 
-    private String level; // Beginner, Intermediate, Expert
-    private String category;
-
-    public Skill() {}
+    public Interest() {}
 
     public Long getId() {
         return id;
@@ -43,21 +40,5 @@ public class Skill {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getLevel() {
-        return level;
-    }
-
-    public void setLevel(String level) {
-        this.level = level;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
     }
 }

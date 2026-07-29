@@ -13,6 +13,8 @@ public class SkillDto {
     @Size(max = 50, message = "Level cannot exceed 50 characters")
     private String level;
 
+    private String category;
+
     public SkillDto() {}
 
     public Long getId() {
@@ -38,4 +40,7 @@ public class SkillDto {
     public void setLevel(String level) {
         this.level = level;
     }
+
+    public String getCategory() { return category; }
+    public void setCategory(String category) { this.category = category; }
 }

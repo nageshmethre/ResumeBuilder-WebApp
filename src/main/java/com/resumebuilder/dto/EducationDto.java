@@ -25,6 +25,11 @@ public class EducationDto {
 
     private String description;
 
+    private String university;
+    private String cgpa;
+    private String percentage;
+    private String location;
+
     public EducationDto() {}
 
     public Long getId() {
@@ -82,4 +87,16 @@ public class EducationDto {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public String getUniversity() { return university; }
+    public void setUniversity(String university) { this.university = university; }
+
+    public String getCgpa() { return cgpa; }
+    public void setCgpa(String cgpa) { this.cgpa = cgpa; }
+
+    public String getPercentage() { return percentage; }
+    public void setPercentage(String percentage) { this.percentage = percentage; }
+
+    public String getLocation() { return location; }
+    public void setLocation(String location) { this.location = location; }
 }

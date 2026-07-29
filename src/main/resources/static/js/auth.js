@@ -1,12 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
     const loginForm = document.getElementById('login-form');
     const registerForm = document.getElementById('register-form');
-    const alertBox = document.getElementById('alert-box');
+    const alertBox = document.getElementById('error-box') || document.getElementById('alert-box');
     const successBox = document.getElementById('success-box');
 
     const showAlert = (message) => {
-        alertBox.innerText = message;
-        alertBox.classList.remove('d-none');
+        if (alertBox) {
+            alertBox.innerText = message;
+            alertBox.classList.remove('d-none');
+        }
     };
 
     const showSuccess = (message) => {
@@ -17,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const clearAlerts = () => {
-        alertBox.classList.add('d-none');
+        if (alertBox) alertBox.classList.add('d-none');
         if (successBox) successBox.classList.add('d-none');
     };
 

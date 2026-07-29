@@ -28,6 +28,22 @@ public class Experience {
     @Column(columnDefinition = "TEXT")
     private String description;
 
+    @Column(name = "employment_type")
+    private String employmentType;
+
+    private String location;
+
+    @Column(name = "is_current")
+    private Boolean isCurrent = false;
+
+    @Column(columnDefinition = "TEXT")
+    private String responsibilities;
+
+    @Column(columnDefinition = "TEXT")
+    private String achievements;
+
+    private String technologies;
+
     public Experience() {}
 
     public Long getId() {
@@ -84,5 +100,53 @@ public class Experience {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getEmploymentType() {
+        return employmentType;
+    }
+
+    public void setEmploymentType(String employmentType) {
+        this.employmentType = employmentType;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public Boolean getIsCurrent() {
+        return isCurrent;
+    }
+
+    public void setIsCurrent(Boolean isCurrent) {
+        this.isCurrent = isCurrent;
+    }
+
+    public String getResponsibilities() {
+        return responsibilities;
+    }
+
+    public void setResponsibilities(String responsibilities) {
+        this.responsibilities = responsibilities;
+    }
+
+    public String getAchievements() {
+        return achievements;
+    }
+
+    public void setAchievements(String achievements) {
+        this.achievements = achievements;
+    }
+
+    public String getTechnologies() {
+        return technologies;
+    }
+
+    public void setTechnologies(String technologies) {
+        this.technologies = technologies;
     }
 }

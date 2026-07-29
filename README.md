@@ -1,67 +1,76 @@
-# Resume Builder — Quick Start
+# AI-Powered ATS-Friendly Resume Builder
 
-This is a simple Spring Boot web app that lets you create, preview, and download resumes as PDF.
+A professional, full-stack resume engineering workspace. The platform empowers job seekers to design modern, Applicant Tracking System (ATS) compliant resumes, perform keyword analyses, utilize AI content assistance, and generate print-friendly PDF exports.
 
-Goal: get the app running locally on Windows in a few easy steps.
+## Core Features
+*   **6 Premium Templates**: Modern (split-sidebar layout), Classic, Professional, Creative, Executive (serif-font centered design), and Student/Fresher (skills-first layout).
+*   **15+ Comprehensive Sections**: Including Work History, Projects, Education, Certifications, Internships, Publications, Workshops, Coding Profiles, Languages, Achievements, References, and Interests.
+*   **Real-time ATS Score Checker**: Live analysis (0-100%) checking for contact information, professional summary length, experience listings, profile links, and formatting parameters.
+*   **Simulated AI Content Generation**: One-click AI Professional Summary generators, keyword optimizers (adds key technology keywords), and skill suggestions based on your target job headline.
+*   **Advanced Customization Panel**: Real-time styling tools to adjust theme primary colors, font families, text sizes, line spacing, page margins, A4/US Letter dimensions, and dynamic section visibility/re-ordering.
+*   **Data Integrity & Versioning**: Double-safeguard auto-saving draft controls, duplicate documents, rename options, and delete controls on the dashboard.
+*   **Flexible Exports/Imports**: Download print-optimized PDFs (via OpenPDF), raw HTML files, or JSON backup configurations. Restore drafts by uploading a JSON backup file.
 
-## What you need
-- Java 17 (JDK)
-- MySQL Server 8.x
-- Command prompt or PowerShell
+---
 
-## Easy Setup
+## Technical Architecture
+*   **Backend**: Spring Boot 3.2.5, Spring Security, JWT (JSON Web Tokens), Spring Data JPA.
+*   **Database**: MySQL 8.x relational database (managed via Hibernate schema auto-updates).
+*   **PDF Compiler**: OpenPDF (for exact, styling-compliant PDF compilation).
+*   **Frontend**: Bootstrap 5 framework, vanilla CSS (custom variables, dark/light theme options, glassmorphism UI, focus glows), vanilla JavaScript REST API hooks.
 
-1. Place the project folder at `C:\resume-builder` so it contains `application.properties` and `resume-builder-1.0.0.jar`.
+---
 
-2. Install Java 17 and verify:
+## Installation & Running Locally
 
+### 1. Prerequisites
+*   **Java JDK 17 or higher** (JDK 25 recommended)
+*   **MySQL Server 8.x** running locally
+*   **Maven** (a portable Maven wrapper is included in `.maven/`)
+
+### 2. Database Configuration
+1. Ensure MySQL server is running.
+2. Initialize a database named `resume_builder` or execute `schema.sql` locally.
+3. Configure your database username and password in `src/main/resources/application.properties` or set them as environment variables:
+   ```powershell
+   $env:DB_URL='jdbc:mysql://localhost:3306/resume_builder?createDatabaseIfNotExist=true&serverTimezone=UTC'
+   $env:DB_USERNAME='root'
+   $env:DB_PASSWORD='your_password_here'
+   ```
+
+### 3. Build the Application
+Compile the project and package the executable JAR using the pre-configured Maven binaries:
 ```powershell
-winget install Oracle.JDK.17
-java -version
+.\.maven\apache-maven-3.9.9\bin\mvn.cmd clean package -DskipTests
 ```
 
-3. Install MySQL and ensure the server is running:
-
+### 4. Launch the Server
+Start the repackaged Spring Boot JAR:
 ```powershell
-winget install Oracle.MySQL
+java -jar target/resume-builder-1.0.0.jar
+```
+*The server will boot up and bind to port **8085** to prevent conflicts on standard port 8080.*
+
+### 5. Access the Platform
+Open your browser and navigate to:
+```url
+http://localhost:8085
 ```
 
-If needed, add MySQL to PATH:
+---
 
-```powershell
-setx PATH "%PATH%;C:\Program Files\MySQL\MySQL Server 8.0\bin" /M
-```
+## REST API Specification
 
-4. Initialize the database (run the SQL in `schema.sql`) or create a database named `resume_builder`.
+### Authentication
+*   `POST /api/auth/register`: Register username, email, and password.
+*   `POST /api/auth/login`: Authenticate and receive a Bearer JWT Token.
 
-5. Confirm or set DB credentials in `src/main/resources/application.properties` or via environment variables:
+### Resumes Console
+*   `GET /api/resumes`: Fetch all resumes owned by the authenticated user.
+*   `POST /api/resumes`: Create a new resume.
+*   `GET /api/resumes/{id}`: Fetch detailed resume attributes by ID.
+*   `PUT /api/resumes/{id}`: Update a resume draft.
+*   `DELETE /api/resumes/{id}`: Delete a resume.
+*   `GET /api/resumes/{id}/pdf`: Generate and download print-ready PDF document.
 
-PowerShell example:
-```powershell
-$env:DB_URL='jdbc:mysql://localhost:3306/resume_builder'
-$env:DB_USERNAME='root'
-$env:DB_PASSWORD='your_password'
-```
-
-6. Start the app (from `C:\resume-builder`):
-
-```powershell
-java -jar resume-builder-1.0.0.jar
-```
-
-7. Open the app in your browser:
-
-http://localhost:8080
-
-Stop the app with `Ctrl+C` in the terminal.
-
-## Quick Troubleshooting
-- "java not found": confirm `java -version` shows Java 17.
-- MySQL errors: ensure MySQL service is running and credentials match `application.properties`.
-- Port 8080 in use: change `server.port` in `application.properties`.
-
-## If you want more
-- I can add examples for `application.properties` values, or update the original README file in your Downloads folder.
-
-Enjoy building resumes!
-
+Enjoy building ATS-compliant resumes!

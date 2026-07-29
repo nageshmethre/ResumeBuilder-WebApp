@@ -3,108 +3,152 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Professional Resume Builder</title>
+    <title>Professional Resume Workspace</title>
     <!-- Google Fonts & Bootstrap 5 -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
 </head>
-<body>
+<body class="bg-light">
 
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <!-- Top Navigation Header -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom py-3 sticky-top">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="/">ResumeBuilder</a>
-            <button class="navbar-expand-toggle d-lg-none border-0 bg-transparent text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto" id="nav-auth-links">
-                    <li class="nav-item"><a class="nav-link" href="/login.html">Login</a></li>
-                    <li class="nav-item"><a class="btn btn-outline-light ms-2" href="/register.html">Sign Up</a></li>
-                </ul>
+            <a class="navbar-brand fw-bold d-flex align-items-center text-dark" href="/">
+                <svg class="text-primary me-2" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+                Resume<span class="text-primary">Builder</span>
+            </a>
+            
+            <div class="d-flex align-items-center gap-3">
+                <div class="d-none d-md-block">
+                    <ul class="navbar-nav align-items-center" id="nav-auth-links">
+                        <li class="nav-item"><a class="nav-link fw-semibold text-secondary" href="/login.html">Sign In</a></li>
+                    </ul>
+                </div>
+                <a class="btn-flat btn-flat-primary px-4 py-2" href="/register.html" id="nav-cta">Create Account</a>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="hero-section text-center">
-        <div class="container">
-            <h1 class="display-4 fw-bold mb-3">Build a Professional Resume in Minutes</h1>
-            <p class="lead mb-4">Create, edit, and download clean, structured, job-ready resumes instantly. Optimized for recruiters and ATS.</p>
-            <a href="/login.html" id="hero-cta" class="btn btn-primary btn-lg hero-btn shadow">Get Started for Free</a>
+    <!-- Professional Hero Area -->
+    <section class="bg-white border-bottom py-5 text-center">
+        <div class="container py-5" style="max-width: 800px;">
+            <span class="pill-badge pill-brand px-3 py-1.5 mb-3">Enterprise-ready Resume Workspaces</span>
+            <h1 class="display-5 fw-bold text-dark mb-3" style="letter-spacing: -0.8px;">Build job-ready, ATS-compliant resumes with a professional layout</h1>
+            <p class="text-secondary fs-5 mb-5 px-md-5">A clean, production-ready builder for engineers and corporate professionals. Switch designs instantly, track scoring parameters, and compile print-optimized PDFs.</p>
+            <div class="d-flex justify-content-center gap-3 flex-wrap">
+                <a href="/login.html" id="hero-cta" class="btn-flat btn-flat-primary px-4 py-2.5">Start Building Free</a>
+                <a href="#features" class="btn-flat btn-flat-outline px-4 py-2.5">Learn More</a>
+            </div>
         </div>
     </section>
 
-    <!-- Core Features Section -->
-    <section class="container my-5 py-4">
-        <h2 class="text-center fw-bold mb-5">Features Engineered for Success</h2>
+    <!-- Feature Grid Section -->
+    <section id="features" class="container my-5 py-4">
+        <div class="text-center mb-5">
+            <h3 class="fw-bold">Engineered for quality and simplicity</h3>
+            <p class="text-secondary">Designed with the professional standards of modern tech and corporate recruiting workspaces.</p>
+        </div>
+
         <div class="row g-4">
             <div class="col-md-4">
-                <div class="card h-100 p-4 border-0 shadow-sm text-center">
+                <div class="card-flat h-100">
                     <div class="mb-3 text-primary">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-file-earmark-person" viewBox="0 0 16 16">
-                            <path d="M11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-                            <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
-                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5.586a1 1 0 0 1 .707.293l5.414 5.414a1 1 0 0 1 .293.707V19a2 2 0 0 1-2 2z"/></svg>
                     </div>
-                    <h4 class="fw-bold">Easy Section Customization</h4>
-                    <p class="text-muted mb-0">Fill in your information section by section. Add or remove items dynamically to suit your career experience.</p>
+                    <h6 class="fw-bold text-dark mb-2">6 Professional Layouts</h6>
+                    <p class="text-secondary small mb-0">Switch between Minimalist, Executive, Modern, Creative, and Student designs with a single click. Formats are fully ATS compatible.</p>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card h-100 p-4 border-0 shadow-sm text-center">
+                <div class="card-flat h-100">
                     <div class="mb-3 text-primary">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
-                            <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 4 8 4s3.879.668 5.168 1.957A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12 8 12s-3.879-.668-5.168-1.957A13.134 13.134 0 0 1 1.172 8z"/>
-                            <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
-                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 002 2h2a2 2 0 002-2z"/></svg>
                     </div>
-                    <h4 class="fw-bold">Instant Live Preview</h4>
-                    <p class="text-muted mb-0">Watch your resume adapt and align automatically on your screen as you type in the editor.</p>
+                    <h6 class="fw-bold text-dark mb-2">ATS Score Checker</h6>
+                    <p class="text-secondary small mb-0">Scans document structure, email validation, LinkedIn/GitHub links, and section completeness in real time to increase interview rates.</p>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card h-100 p-4 border-0 shadow-sm text-center">
+                <div class="card-flat h-100">
                     <div class="mb-3 text-primary">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-file-earmark-pdf" viewBox="0 0 16 16">
-                            <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
-                            <path d="M8.643 9c.18 0 .342-.09.435-.24.131-.203.24-.467.31-.762.073-.308.117-.656.125-1.015.008-.337-.02-.659-.092-.931-.072-.277-.184-.495-.342-.622a.442.442 0 0 0-.254-.08c-.18 0-.342.09-.435.24-.131.203-.24.467-.31.762-.073.308-.117.656-.125 1.015-.008.337.02.659.092.931.072.277.184.495.342.622.062.05.15.08.254.08z"/>
-                            <path d="M10.067 10.135c.137.054.269.094.392.12.185.04.385.068.592.068.543 0 .914-.306.914-.827 0-.588-.476-.922-1.251-.922a4.46 4.46 0 0 0-.616.039c-.173.29-.385.673-.615 1.1-.137.253-.284.53-.435.823.188.083.398.17.618.259.138.056.273.105.397.143zm-3.87 1.359c.143-.377.308-.85.474-1.393a11.968 11.968 0 0 0-.825-.398c-.282-.12-.572-.218-.854-.293a2.502 2.502 0 0 0-.22.613c-.06.289-.04.532.06.68.109.162.33.24.636.24.288 0 .543-.095.729-.249z"/>
-                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
                     </div>
-                    <h4 class="fw-bold">Export to PDF</h4>
-                    <p class="text-muted mb-0">Generate a clean, standard A4 PDF document programmatically from our servers with a single click.</p>
+                    <h6 class="fw-bold text-dark mb-2">Data Portability</h6>
+                    <p class="text-secondary small mb-0">Full export supports for print-ready PDFs, clean web HTML sheets, or standard JSON draft configuration backups.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Templates Showcase Section -->
+    <section class="bg-white border-top border-bottom py-5">
+        <div class="container my-4">
+            <div class="text-center mb-5">
+                <h4 class="fw-bold">Built for Recruiters</h4>
+                <p class="text-secondary">Clean layouts built to enhance scannability and structure.</p>
+            </div>
+            
+            <div class="row g-4 justify-content-center">
+                <div class="col-md-4">
+                    <div class="card-flat p-4 text-center">
+                        <div class="border rounded bg-light py-4 mb-3" style="font-family:'Inter'; border-top: 3px solid var(--brand-primary) !important;">
+                            <span class="small fw-semibold text-secondary">MODERN SIDEBAR</span>
+                        </div>
+                        <h6 class="fw-bold mb-1">Modern Template</h5>
+                        <p class="small text-secondary mb-0">Dual-column details structure</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card-flat p-4 text-center">
+                        <div class="border rounded bg-light py-4 mb-3" style="font-family:Georgia, serif; border-top: 3px solid #111827 !important;">
+                            <span class="small fw-semibold text-secondary">EXECUTIVE SERIF</span>
+                        </div>
+                        <h6 class="fw-bold mb-1">Executive Template</h5>
+                        <p class="small text-secondary mb-0">Traditional corporate style</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card-flat p-4 text-center">
+                        <div class="border rounded bg-light py-4 mb-3" style="font-family:monospace; border-top: 3px dashed #64748b !important;">
+                            <span class="small fw-semibold text-secondary">MINIMAL MONO</span>
+                        </div>
+                        <h6 class="fw-bold mb-1">Minimalist Template</h5>
+                        <p class="small text-secondary mb-0">Clean developer monospace</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-dark text-white text-center py-4">
+    <footer class="bg-white border-top py-4 text-center">
         <div class="container">
-            <p class="mb-0">&copy; 2026 ResumeBuilder. All rights reserved.</p>
+            <p class="text-secondary small mb-0">&copy; 2026 ResumeBuilder. All rights reserved.</p>
         </div>
     </footer>
 
-    <!-- JS dependencies -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Theme Logic & Navigation links -->
     <script>
-        // Inline check for navigation state based on login status
         document.addEventListener('DOMContentLoaded', () => {
             const token = localStorage.getItem('token');
             if (token) {
                 const navLinks = document.getElementById('nav-auth-links');
                 const heroCta = document.getElementById('hero-cta');
+                const navCta = document.getElementById('nav-cta');
                 
                 navLinks.innerHTML = `
-                    <li class="nav-item"><a class="nav-link" href="/dashboard.html">Dashboard</a></li>
-                    <li class="nav-item"><a class="btn btn-outline-light ms-2" href="#" id="logout-btn">Logout</a></li>
+                    <li class="nav-item"><a class="nav-link fw-semibold text-secondary" href="/dashboard.html">Dashboard</a></li>
+                    <li class="nav-item ms-3"><a class="nav-link fw-semibold text-danger" href="#" id="logout-btn">Sign Out</a></li>
                 `;
                 
                 if (heroCta) {
                     heroCta.innerText = 'Go to Dashboard';
                     heroCta.setAttribute('href', '/dashboard.html');
+                }
+                if (navCta) {
+                    navCta.innerText = 'Go to Dashboard';
+                    navCta.setAttribute('href', '/dashboard.html');
                 }
                 
                 document.getElementById('logout-btn').addEventListener('click', (e) => {
