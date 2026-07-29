@@ -31,11 +31,11 @@ public class PdfService {
         }
 
         // Margins
-        float margin = 36f; // normal
+        float margin = 30f; // normal
         if ("compact".equalsIgnoreCase(resume.getPageMargins())) {
-            margin = 20f;
+            margin = 18f;
         } else if ("large".equalsIgnoreCase(resume.getPageMargins())) {
-            margin = 54f;
+            margin = 48f;
         }
 
         Document document = new Document(pageSize, margin, margin, margin, margin);
@@ -118,27 +118,27 @@ public class PdfService {
         }
 
         // Font Sizes configuration
-        float baseSize = 10f;
+        float baseSize = 9.5f;
         if ("small".equalsIgnoreCase(resume.getFontSize()) || "compact".equals(template)) {
-            baseSize = 8.5f;
+            baseSize = 8.0f;
         } else if ("large".equalsIgnoreCase(resume.getFontSize())) {
-            baseSize = 11.5f;
+            baseSize = 11.0f;
         }
 
-        Font nameFont = getFont(fontFamily, baseSize + 12, Font.BOLD, "minimal".equals(template) || "developer".equals(template) ? Color.BLACK : primary);
-        Font titleFont = getFont(fontFamily, baseSize + 2, Font.BOLD, textMuted);
+        Font nameFont = getFont(fontFamily, baseSize + 11, Font.BOLD, "minimal".equals(template) || "developer".equals(template) ? Color.BLACK : primary);
+        Font titleFont = getFont(fontFamily, baseSize + 1.5f, Font.BOLD, textMuted);
         Font contactFont = getFont(fontFamily, baseSize - 1, Font.NORMAL, textMuted);
-        Font sectionTitleFont = getFont(fontFamily, baseSize + 3, Font.BOLD, primary);
-        Font itemTitleFont = getFont(fontFamily, baseSize + 1, Font.BOLD, textMain);
-        Font itemSubFont = getFont(fontFamily, baseSize, Font.ITALIC, textMuted);
-        Font bodyFont = getFont(fontFamily, baseSize, Font.NORMAL, textMain);
+        Font sectionTitleFont = getFont(fontFamily, baseSize + 2.5f, Font.BOLD, primary);
+        Font itemTitleFont = getFont(fontFamily, baseSize + 0.5f, Font.BOLD, textMain);
+        Font itemSubFont = getFont(fontFamily, baseSize - 0.5f, Font.ITALIC, textMuted);
+        Font bodyFont = getFont(fontFamily, baseSize - 0.2f, Font.NORMAL, textMain);
 
         // Line Spacing
-        float leading = 13f;
+        float leading = 12f;
         if ("compact".equalsIgnoreCase(resume.getLineSpacing()) || "compact".equals(template)) {
-            leading = 11f;
+            leading = 9.5f;
         } else if ("large".equalsIgnoreCase(resume.getLineSpacing())) {
-            leading = 16f;
+            leading = 15f;
         }
 
         // 1. Personal Header Section (Creative gets banner look, Executive is centered serif, etc.)
@@ -1269,8 +1269,8 @@ public class PdfService {
 
     private void addSectionHeader(Document document, String title, Font font, LineSeparator separator) throws DocumentException {
         Paragraph titlePara = new Paragraph(title.toUpperCase(), font);
-        titlePara.setSpacingBefore(8);
-        titlePara.setSpacingAfter(2);
+        titlePara.setSpacingBefore(5);
+        titlePara.setSpacingAfter(1);
         document.add(titlePara);
         document.add(separator);
     }
