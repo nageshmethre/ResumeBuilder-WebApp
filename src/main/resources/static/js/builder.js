@@ -1451,6 +1451,7 @@ function compilePayload() {
     const lineSpacing = document.getElementById('spacing-select').value;
     const pageMargins = document.getElementById('margin-select').value;
     const pageSize = document.getElementById('page-size-select').value;
+    const maxPages = document.getElementById('max-pages-select').value;
 
     const showSections = getVisibleSections().join(',');
     const sectionOrder = activeSectionsOrder.join(',');
@@ -1675,7 +1676,7 @@ function compilePayload() {
         title, firstName, lastName, email, phone, address, summary,
         dob, city, country, headline,
         linkedin, github, portfolio, website,
-        template, fontFamily, fontSize, primaryColor, lineSpacing, pageMargins, pageSize,
+        template, fontFamily, fontSize, primaryColor, lineSpacing, pageMargins, pageSize, maxPages,
         showSections, sectionOrder,
         education, experience, projects, skills, certifications, internships,
         publications, workshops, achievements, codingProfiles, languages, interests, references
@@ -1889,6 +1890,7 @@ function populateForm(resume) {
     document.getElementById('spacing-select').value = resume.lineSpacing || 'normal';
     document.getElementById('margin-select').value = resume.pageMargins || 'normal';
     document.getElementById('page-size-select').value = resume.pageSize || 'a4';
+    document.getElementById('max-pages-select').value = resume.maxPages || '2';
 
     // Clear dynamic blocks
     document.getElementById('education-list').innerHTML = '';

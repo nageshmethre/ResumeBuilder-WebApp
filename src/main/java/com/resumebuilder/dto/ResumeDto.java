@@ -53,6 +53,7 @@ public class ResumeDto {
     private String lineSpacing = "normal";
     private String pageMargins = "normal";
     private String pageSize = "a4";
+    private String maxPages = "2";
     private String showSections;
     private String sectionOrder;
 
@@ -237,6 +238,9 @@ public class ResumeDto {
 
     public String getPageSize() { return pageSize; }
     public void setPageSize(String pageSize) { this.pageSize = pageSize; }
+
+    public String getMaxPages() { return maxPages; }
+    public void setMaxPages(String maxPages) { this.maxPages = maxPages; }
 
     public String getShowSections() { return showSections; }
     public void setShowSections(String showSections) { this.showSections = showSections; }

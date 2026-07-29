@@ -32,7 +32,7 @@ public class PdfService {
 
         // Margins
         float margin = 30f; // normal
-        if ("compact".equalsIgnoreCase(resume.getPageMargins())) {
+        if ("compact".equalsIgnoreCase(resume.getPageMargins()) || "1".equals(resume.getMaxPages())) {
             margin = 18f;
         } else if ("large".equalsIgnoreCase(resume.getPageMargins())) {
             margin = 48f;
@@ -119,24 +119,28 @@ public class PdfService {
 
         // Font Sizes configuration
         float baseSize = 9.5f;
-        if ("small".equalsIgnoreCase(resume.getFontSize()) || "compact".equals(template)) {
+        if ("small".equalsIgnoreCase(resume.getFontSize()) || "compact".equals(template) || "1".equals(resume.getMaxPages())) {
             baseSize = 8.0f;
         } else if ("large".equalsIgnoreCase(resume.getFontSize())) {
             baseSize = 11.0f;
         }
 
-        Font nameFont = getFont(fontFamily, baseSize + 11, Font.BOLD, "minimal".equals(template) || "developer".equals(template) ? Color.BLACK : primary);
+        if ("1".equals(resume.getMaxPages())) {
+            baseSize = baseSize - 0.5f;
+        }
+
+        Font nameFont = getFont(fontFamily, baseSize + 10, Font.BOLD, "minimal".equals(template) || "developer".equals(template) ? Color.BLACK : primary);
         Font titleFont = getFont(fontFamily, baseSize + 1.5f, Font.BOLD, textMuted);
         Font contactFont = getFont(fontFamily, baseSize - 1, Font.NORMAL, textMuted);
-        Font sectionTitleFont = getFont(fontFamily, baseSize + 2.5f, Font.BOLD, primary);
+        Font sectionTitleFont = getFont(fontFamily, baseSize + 2.0f, Font.BOLD, primary);
         Font itemTitleFont = getFont(fontFamily, baseSize + 0.5f, Font.BOLD, textMain);
         Font itemSubFont = getFont(fontFamily, baseSize - 0.5f, Font.ITALIC, textMuted);
         Font bodyFont = getFont(fontFamily, baseSize - 0.2f, Font.NORMAL, textMain);
 
         // Line Spacing
         float leading = 12f;
-        if ("compact".equalsIgnoreCase(resume.getLineSpacing()) || "compact".equals(template)) {
-            leading = 9.5f;
+        if ("compact".equalsIgnoreCase(resume.getLineSpacing()) || "compact".equals(template) || "1".equals(resume.getMaxPages())) {
+            leading = 9.2f;
         } else if ("large".equalsIgnoreCase(resume.getLineSpacing())) {
             leading = 15f;
         }

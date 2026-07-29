@@ -92,6 +92,7 @@ public class ResumeService {
         resume.setLineSpacing(dto.getLineSpacing() != null ? dto.getLineSpacing() : "normal");
         resume.setPageMargins(dto.getPageMargins() != null ? dto.getPageMargins() : "normal");
         resume.setPageSize(dto.getPageSize() != null ? dto.getPageSize() : "a4");
+        resume.setMaxPages(dto.getMaxPages() != null ? dto.getMaxPages() : "2");
         resume.setShowSections(dto.getShowSections());
         resume.setSectionOrder(dto.getSectionOrder());
 
@@ -324,6 +325,7 @@ public class ResumeService {
         dto.setLineSpacing(resume.getLineSpacing());
         dto.setPageMargins(resume.getPageMargins());
         dto.setPageSize(resume.getPageSize());
+        dto.setMaxPages(resume.getMaxPages());
         dto.setShowSections(resume.getShowSections());
         dto.setSectionOrder(resume.getSectionOrder());
 

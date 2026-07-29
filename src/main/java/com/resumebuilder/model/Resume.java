@@ -64,6 +64,9 @@ public class Resume {
     @Column(name = "page_size")
     private String pageSize = "a4";
 
+    @Column(name = "max_pages")
+    private String maxPages = "2";
+
     @Column(name = "show_sections", columnDefinition = "TEXT")
     private String showSections;
 
@@ -260,6 +263,9 @@ public class Resume {
 
     public String getPageSize() { return pageSize; }
     public void setPageSize(String pageSize) { this.pageSize = pageSize; }
+
+    public String getMaxPages() { return maxPages; }
+    public void setMaxPages(String maxPages) { this.maxPages = maxPages; }
 
     public String getShowSections() { return showSections; }
     public void setShowSections(String showSections) { this.showSections = showSections; }
