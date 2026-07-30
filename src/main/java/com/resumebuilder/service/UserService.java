@@ -16,6 +16,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
+import java.util.Set;
+import java.util.HashSet;
 import java.util.stream.Collectors;
 
 @Service
@@ -62,10 +64,18 @@ public class UserService implements UserDetailsService {
                 passwordEncoder.encode(registerRequest.getPassword())
         );
 
-        // Assign default USER role
+        // Assign default USER role, and ROLE_ADMIN if username is 'admin'
+        Set<Role> roles = new HashSet<>();
         Role userRole = roleRepository.findByName("ROLE_USER")
                 .orElseGet(() -> roleRepository.save(new Role("ROLE_USER")));
-        user.setRoles(Collections.singleton(userRole));
+        roles.add(userRole);
+        
+        if ("admin".equalsIgnoreCase(registerRequest.getUsername())) {
+            Role adminRole = roleRepository.findByName("ROLE_ADMIN")
+                    .orElseGet(() -> roleRepository.save(new Role("ROLE_ADMIN")));
+            roles.add(adminRole);
+        }
+        user.setRoles(roles);
 
         return userRepository.save(user);
     }

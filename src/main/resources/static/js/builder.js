@@ -7,6 +7,13 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
+    // Show Admin Back Button if user is admin
+    const roles = JSON.parse(localStorage.getItem('roles') || '[]');
+    if (roles.includes('ROLE_ADMIN')) {
+        const adminBtn = document.getElementById('admin-back-btn');
+        if (adminBtn) adminBtn.classList.remove('d-none');
+    }
+
     const urlParams = new URLSearchParams(window.location.search);
     resumeId = urlParams.get('id');
 

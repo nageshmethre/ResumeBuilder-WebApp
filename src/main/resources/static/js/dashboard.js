@@ -12,6 +12,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const initials = username.charAt(0).toUpperCase();
     document.getElementById('user-avatar').innerText = initials;
 
+    // Show Admin Panel Link if Admin
+    const roles = JSON.parse(localStorage.getItem('roles') || '[]');
+    if (roles.includes('ROLE_ADMIN')) {
+        const adminItem = document.getElementById('admin-menu-item');
+        if (adminItem) adminItem.classList.remove('d-none');
+    }
+
     // Collapsible Sidebar Navigation Toggle
     const sidebar = document.getElementById('sidebar');
     const toggleBtn = document.getElementById('sidebar-toggle-btn');
