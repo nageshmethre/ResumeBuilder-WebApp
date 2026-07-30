@@ -31,11 +31,15 @@ public class PdfService {
         }
 
         // Margins
-        float margin = 30f; // normal
-        if ("compact".equalsIgnoreCase(resume.getPageMargins()) || "1".equals(resume.getMaxPages())) {
-            margin = 18f;
-        } else if ("large".equalsIgnoreCase(resume.getPageMargins())) {
-            margin = 48f;
+        float margin = 36f; // Default 0.5 inch (36 points)
+        if (resume.getMarginSize() != null) {
+            margin = (float) (resume.getMarginSize() * 72.0);
+        } else {
+            if ("compact".equalsIgnoreCase(resume.getPageMargins()) || "1".equals(resume.getMaxPages())) {
+                margin = 21.6f; // 0.3 inch
+            } else if ("large".equalsIgnoreCase(resume.getPageMargins())) {
+                margin = 54f; // 0.75 inch
+            }
         }
 
         Document document = new Document(pageSize, margin, margin, margin, margin);
@@ -118,32 +122,26 @@ public class PdfService {
         }
 
         // Font Sizes configuration
-        float baseSize = 9.5f;
-        if ("small".equalsIgnoreCase(resume.getFontSize()) || "compact".equals(template) || "1".equals(resume.getMaxPages())) {
-            baseSize = 8.0f;
-        } else if ("large".equalsIgnoreCase(resume.getFontSize())) {
-            baseSize = 11.0f;
-        }
-
+        float scale = 1.0f;
         if ("1".equals(resume.getMaxPages())) {
-            baseSize = baseSize - 0.5f;
+            scale = 0.9f;
         }
 
-        Font nameFont = getFont(fontFamily, baseSize + 10, Font.BOLD, "minimal".equals(template) || "developer".equals(template) ? Color.BLACK : primary);
-        Font titleFont = getFont(fontFamily, baseSize + 1.5f, Font.BOLD, textMuted);
-        Font contactFont = getFont(fontFamily, baseSize - 1, Font.NORMAL, textMuted);
-        Font sectionTitleFont = getFont(fontFamily, baseSize + 2.0f, Font.BOLD, primary);
-        Font itemTitleFont = getFont(fontFamily, baseSize + 0.5f, Font.BOLD, textMain);
-        Font itemSubFont = getFont(fontFamily, baseSize - 0.5f, Font.ITALIC, textMuted);
-        Font bodyFont = getFont(fontFamily, baseSize - 0.2f, Font.NORMAL, textMain);
+        float nameSize = ((resume.getFontSizeName() != null) ? resume.getFontSizeName().floatValue() : 26f) * scale;
+        float headingSize = ((resume.getFontSizeHeading() != null) ? resume.getFontSizeHeading().floatValue() : 14f) * scale;
+        float bodySize = ((resume.getFontSizeBody() != null) ? resume.getFontSizeBody().floatValue() : 10.5f) * scale;
+
+        Font nameFont = getFont(fontFamily, nameSize, Font.BOLD, "minimal".equals(template) || "developer".equals(template) ? Color.BLACK : primary);
+        Font titleFont = getFont(fontFamily, bodySize + 1.5f, Font.BOLD, textMuted);
+        Font contactFont = getFont(fontFamily, bodySize - 0.5f, Font.NORMAL, textMuted);
+        Font sectionTitleFont = getFont(fontFamily, headingSize, Font.BOLD, primary);
+        Font itemTitleFont = getFont(fontFamily, bodySize + 0.5f, Font.BOLD, textMain);
+        Font itemSubFont = getFont(fontFamily, bodySize - 0.5f, Font.ITALIC, textMuted);
+        Font bodyFont = getFont(fontFamily, bodySize, Font.NORMAL, textMain);
 
         // Line Spacing
-        float leading = 12f;
-        if ("compact".equalsIgnoreCase(resume.getLineSpacing()) || "compact".equals(template) || "1".equals(resume.getMaxPages())) {
-            leading = 9.2f;
-        } else if ("large".equalsIgnoreCase(resume.getLineSpacing())) {
-            leading = 15f;
-        }
+        float lineSp = (resume.getLineHeight() != null) ? resume.getLineHeight().floatValue() : 1.2f;
+        float leading = bodySize * lineSp;
 
         // 1. Personal Header Section (Creative gets banner look, Executive is centered serif, etc.)
         if ("creative".equals(template) || "bold-header".equals(template)) {
@@ -157,13 +155,13 @@ public class PdfService {
             cell.setPadding(15);
             cell.setBorder(Rectangle.NO_BORDER);
 
-            Paragraph namePara = new Paragraph(resume.getFirstName() + " " + resume.getLastName(), getFont(fontFamily, baseSize + 14, Font.BOLD, Color.WHITE));
+            Paragraph namePara = new Paragraph(resume.getFirstName() + " " + resume.getLastName(), getFont(fontFamily, nameSize, Font.BOLD, Color.WHITE));
             namePara.setAlignment(Element.ALIGN_CENTER);
             cell.addElement(namePara);
 
             String title = (resume.getHeadline() != null) ? resume.getHeadline() : "";
             if (!title.isEmpty()) {
-                Paragraph titlePara = new Paragraph(title.toUpperCase(), getFont(fontFamily, baseSize + 1, Font.BOLD, new Color(244, 244, 245)));
+                Paragraph titlePara = new Paragraph(title.toUpperCase(), getFont(fontFamily, bodySize + 1.5f, Font.BOLD, new Color(244, 244, 245)));
                 titlePara.setAlignment(Element.ALIGN_CENTER);
                 titlePara.setSpacingBefore(3);
                 cell.addElement(titlePara);
@@ -197,7 +195,9 @@ public class PdfService {
         }
 
         // Separator
-        LineSeparator separator = new LineSeparator(1.2f, 100, "minimal".equals(template) ? Color.BLACK : primary, Element.ALIGN_CENTER, -4);
+        float divThickness = (resume.getHasDividers() == null || resume.getHasDividers()) ? ((resume.getDividerThickness() != null) ? resume.getDividerThickness().floatValue() : 1.0f) : 0f;
+        Color divColor = parseColor(resume.getDividerColor(), "minimal".equals(template) ? Color.BLACK : primary);
+        LineSeparator separator = new LineSeparator(divThickness, 100, divColor, Element.ALIGN_CENTER, -4);
         
         // Define default section order
         List<String> orderList = new ArrayList<>(Arrays.asList(
@@ -234,7 +234,7 @@ public class PdfService {
             switch (section) {
                 case "summary":
                     if (resume.getSummary() != null && !resume.getSummary().trim().isEmpty()) {
-                        addSectionHeader(document, "Professional Summary", sectionTitleFont, separator);
+                        addSectionHeader(document, "Professional Summary", sectionTitleFont, separator, resume);
                         Paragraph summaryPara = new Paragraph(resume.getSummary(), bodyFont);
                         summaryPara.setLeading(leading);
                         summaryPara.setSpacingBefore(4);
@@ -244,7 +244,7 @@ public class PdfService {
                     break;
                 case "experience":
                     if (resume.getExperience() != null && !resume.getExperience().isEmpty()) {
-                        addSectionHeader(document, "Work Experience", sectionTitleFont, separator);
+                        addSectionHeader(document, "Work Experience", sectionTitleFont, separator, resume);
                         for (ExperienceDto exp : resume.getExperience()) {
                             PdfPTable expTable = new PdfPTable(2);
                             expTable.setWidthPercentage(100);
@@ -287,7 +287,7 @@ public class PdfService {
                     break;
                 case "internships":
                     if (resume.getInternships() != null && !resume.getInternships().isEmpty()) {
-                        addSectionHeader(document, "Internships", sectionTitleFont, separator);
+                        addSectionHeader(document, "Internships", sectionTitleFont, separator, resume);
                         for (InternshipDto internship : resume.getInternships()) {
                             PdfPTable intTable = new PdfPTable(2);
                             intTable.setWidthPercentage(100);
@@ -322,7 +322,7 @@ public class PdfService {
                     break;
                 case "projects":
                     if (resume.getProjects() != null && !resume.getProjects().isEmpty()) {
-                        addSectionHeader(document, "Projects", sectionTitleFont, separator);
+                        addSectionHeader(document, "Projects", sectionTitleFont, separator, resume);
                         for (ProjectDto proj : resume.getProjects()) {
                             PdfPTable projTable = new PdfPTable(2);
                             projTable.setWidthPercentage(100);
@@ -390,7 +390,7 @@ public class PdfService {
                     break;
                 case "education":
                     if (resume.getEducation() != null && !resume.getEducation().isEmpty()) {
-                        addSectionHeader(document, "Education", sectionTitleFont, separator);
+                        addSectionHeader(document, "Education", sectionTitleFont, separator, resume);
                         for (EducationDto edu : resume.getEducation()) {
                             PdfPTable eduTable = new PdfPTable(2);
                             eduTable.setWidthPercentage(100);
@@ -443,7 +443,7 @@ public class PdfService {
                     break;
                 case "certifications":
                     if (resume.getCertifications() != null && !resume.getCertifications().isEmpty()) {
-                        addSectionHeader(document, "Certifications", sectionTitleFont, separator);
+                        addSectionHeader(document, "Certifications", sectionTitleFont, separator, resume);
                         for (CertificationDto cert : resume.getCertifications()) {
                             PdfPTable certTable = new PdfPTable(2);
                             certTable.setWidthPercentage(100);
@@ -480,7 +480,7 @@ public class PdfService {
                     break;
                 case "publications":
                     if (resume.getPublications() != null && !resume.getPublications().isEmpty()) {
-                        addSectionHeader(document, "Research Publications", sectionTitleFont, separator);
+                        addSectionHeader(document, "Research Publications", sectionTitleFont, separator, resume);
                         for (PublicationDto pub : resume.getPublications()) {
                             PdfPTable pubTable = new PdfPTable(2);
                             pubTable.setWidthPercentage(100);
@@ -524,7 +524,7 @@ public class PdfService {
                     break;
                 case "workshops":
                     if (resume.getWorkshops() != null && !resume.getWorkshops().isEmpty()) {
-                        addSectionHeader(document, "Workshops", sectionTitleFont, separator);
+                        addSectionHeader(document, "Workshops", sectionTitleFont, separator, resume);
                         for (WorkshopDto work : resume.getWorkshops()) {
                             PdfPTable workTable = new PdfPTable(2);
                             workTable.setWidthPercentage(100);
@@ -546,7 +546,7 @@ public class PdfService {
                     break;
                 case "coding_profiles":
                     if (resume.getCodingProfiles() != null && !resume.getCodingProfiles().isEmpty()) {
-                        addSectionHeader(document, "Coding Profiles", sectionTitleFont, separator);
+                        addSectionHeader(document, "Coding Profiles", sectionTitleFont, separator, resume);
                         PdfPTable cpTable = new PdfPTable(2);
                         cpTable.setWidthPercentage(100);
                         cpTable.setSpacingBefore(4);
@@ -572,7 +572,7 @@ public class PdfService {
                     break;
                 case "languages":
                     if (resume.getLanguages() != null && !resume.getLanguages().isEmpty()) {
-                        addSectionHeader(document, "Languages", sectionTitleFont, separator);
+                        addSectionHeader(document, "Languages", sectionTitleFont, separator, resume);
                         StringBuilder langBuilder = new StringBuilder();
                         for (int i = 0; i < resume.getLanguages().size(); i++) {
                             LanguageDto lang = resume.getLanguages().get(i);
@@ -598,7 +598,7 @@ public class PdfService {
                     break;
                 case "achievements":
                     if (resume.getAchievements() != null && !resume.getAchievements().isEmpty()) {
-                        addSectionHeader(document, "Achievements & Awards", sectionTitleFont, separator);
+                        addSectionHeader(document, "Achievements & Awards", sectionTitleFont, separator, resume);
                         for (AchievementDto ach : resume.getAchievements()) {
                             Paragraph achPara = new Paragraph("• [" + ach.getCategory() + "] " + ach.getDescription(), bodyFont);
                             achPara.setLeading(leading);
@@ -610,7 +610,7 @@ public class PdfService {
                     break;
                 case "references":
                     if (resume.getReferences() != null && !resume.getReferences().isEmpty()) {
-                        addSectionHeader(document, "References", sectionTitleFont, separator);
+                        addSectionHeader(document, "References", sectionTitleFont, separator, resume);
                         PdfPTable refTable = new PdfPTable(2);
                         refTable.setWidthPercentage(100);
                         refTable.setSpacingBefore(5);
@@ -647,7 +647,7 @@ public class PdfService {
                     break;
                 case "interests":
                     if (resume.getInterests() != null && !resume.getInterests().isEmpty()) {
-                        addSectionHeader(document, "Interests", sectionTitleFont, separator);
+                        addSectionHeader(document, "Interests", sectionTitleFont, separator, resume);
                         StringBuilder intBuilder = new StringBuilder();
                         for (int i = 0; i < resume.getInterests().size(); i++) {
                             intBuilder.append(resume.getInterests().get(i).getName());
@@ -663,7 +663,7 @@ public class PdfService {
                     break;
                 case "skills":
                     if (resume.getSkills() != null && !resume.getSkills().isEmpty()) {
-                        addSectionHeader(document, "Technical Skills", sectionTitleFont, separator);
+                        addSectionHeader(document, "Technical Skills", sectionTitleFont, separator, resume);
                         
                         // Group skills by category
                         Map<String, List<String>> grouped = new LinkedHashMap<>();
@@ -703,33 +703,34 @@ public class PdfService {
         Color textMuted = Color.GRAY;
         String fontFamily = resume.getFontFamily() != null ? resume.getFontFamily() : "sans-serif";
 
-        float baseSize = 10f;
-        if ("small".equalsIgnoreCase(resume.getFontSize())) {
-            baseSize = 8.5f;
-        } else if ("large".equalsIgnoreCase(resume.getFontSize())) {
-            baseSize = 11.5f;
+        // Font Sizes configuration
+        float scale = 1.0f;
+        if ("1".equals(resume.getMaxPages())) {
+            scale = 0.9f;
         }
+
+        float nameSize = ((resume.getFontSizeName() != null) ? resume.getFontSizeName().floatValue() : 26f) * scale;
+        float headingSize = ((resume.getFontSizeHeading() != null) ? resume.getFontSizeHeading().floatValue() : 14f) * scale;
+        float bodySize = ((resume.getFontSizeBody() != null) ? resume.getFontSizeBody().floatValue() : 10.5f) * scale;
 
         // Fonts
-        Font nameFont = getFont(fontFamily, baseSize + 10, Font.BOLD, primary);
-        Font titleFont = getFont(fontFamily, baseSize + 1, Font.BOLD, textMain);
-        Font sideTitleFont = getFont(fontFamily, baseSize + 2, Font.BOLD, primary);
-        Font sideTextFont = getFont(fontFamily, baseSize - 1f, Font.NORMAL, textMain);
-        Font mainTitleFont = getFont(fontFamily, baseSize + 3, Font.BOLD, primary);
-        Font itemTitleFont = getFont(fontFamily, baseSize + 1, Font.BOLD, textMain);
-        Font itemSubFont = getFont(fontFamily, baseSize, Font.ITALIC, textMuted);
-        Font bodyFont = getFont(fontFamily, baseSize, Font.NORMAL, textMain);
+        Font nameFont = getFont(fontFamily, nameSize, Font.BOLD, primary);
+        Font titleFont = getFont(fontFamily, bodySize + 1, Font.BOLD, textMain);
+        Font sideTitleFont = getFont(fontFamily, headingSize, Font.BOLD, primary);
+        Font sideTextFont = getFont(fontFamily, bodySize - 0.5f, Font.NORMAL, textMain);
+        Font mainTitleFont = getFont(fontFamily, headingSize + 1, Font.BOLD, primary);
+        Font itemTitleFont = getFont(fontFamily, bodySize + 0.5f, Font.BOLD, textMain);
+        Font itemSubFont = getFont(fontFamily, bodySize - 0.5f, Font.ITALIC, textMuted);
+        Font bodyFont = getFont(fontFamily, bodySize, Font.NORMAL, textMain);
 
-        float leading = 13f;
-        if ("compact".equalsIgnoreCase(resume.getLineSpacing())) {
-            leading = 11f;
-        } else if ("large".equalsIgnoreCase(resume.getLineSpacing())) {
-            leading = 16f;
-        }
+        float lineSp = (resume.getLineHeight() != null) ? resume.getLineHeight().floatValue() : 1.2f;
+        float leading = bodySize * lineSp;
 
         // Separators
-        LineSeparator sideSep = new LineSeparator(1f, 100, primary, Element.ALIGN_LEFT, -2);
-        LineSeparator mainSep = new LineSeparator(1.2f, 100, primary, Element.ALIGN_LEFT, -4);
+        float divThickness = (resume.getHasDividers() == null || resume.getHasDividers()) ? ((resume.getDividerThickness() != null) ? resume.getDividerThickness().floatValue() : 1.0f) : 0f;
+        Color divColor = parseColor(resume.getDividerColor(), new Color(209, 213, 219)); // #d1d5db
+        LineSeparator sideSep = new LineSeparator(divThickness, 100, divColor, Element.ALIGN_LEFT, -2);
+        LineSeparator mainSep = new LineSeparator(divThickness, 100, divColor, Element.ALIGN_LEFT, -4);
 
         // --- CELL 1: LEFT SIDEBAR ---
         PdfPCell sidebarCell = new PdfPCell();
@@ -1273,12 +1274,15 @@ public class PdfService {
         }
     }
 
-    private void addSectionHeader(Document document, String title, Font font, LineSeparator separator) throws DocumentException {
+    private void addSectionHeader(Document document, String title, Font font, LineSeparator separator, ResumeDto resume) throws DocumentException {
         Paragraph titlePara = new Paragraph(title.toUpperCase(), font);
-        titlePara.setSpacingBefore(5);
-        titlePara.setSpacingAfter(1);
+        float spacingBefore = (resume.getSectionSpacing() != null) ? resume.getSectionSpacing().floatValue() * 0.5f : 5f;
+        titlePara.setSpacingBefore(spacingBefore);
+        titlePara.setSpacingAfter(2f);
         document.add(titlePara);
-        document.add(separator);
+        if (resume.getHasDividers() == null || resume.getHasDividers()) {
+            document.add(separator);
+        }
     }
 
     private void addSideSectionHeader(PdfPCell cell, String title, Font font, LineSeparator separator) {
@@ -1300,7 +1304,7 @@ public class PdfService {
         cell.addElement(table);
     }
 
-    private void addSideSectionHeader(Document document, String title, Font font, LineSeparator separator) throws DocumentException {
-        addSectionHeader(document, title, font, separator);
+    private void addSideSectionHeader(Document document, String title, Font font, LineSeparator separator, ResumeDto resume) throws DocumentException {
+        addSectionHeader(document, title, font, separator, resume);
     }
 }

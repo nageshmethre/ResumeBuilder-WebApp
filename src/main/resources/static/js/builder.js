@@ -85,13 +85,23 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('add-interest-btn').addEventListener('click', () => addInterestItem());
     document.getElementById('add-ref-btn').addEventListener('click', () => addReferenceItem());
 
-    // STYLE CUSTOMIZER DROPDOWNS
+    // STYLE CUSTOMIZER DROPDOWNS & SLIDERS
     document.getElementById('template-select').addEventListener('change', updatePreview);
     document.getElementById('font-select').addEventListener('change', updatePreview);
-    document.getElementById('font-size-select').addEventListener('change', updatePreview);
-    document.getElementById('margin-select').addEventListener('change', updatePreview);
-    document.getElementById('spacing-select').addEventListener('change', updatePreview);
     document.getElementById('page-size-select').addEventListener('change', updatePreview);
+    document.getElementById('max-pages-select').addEventListener('change', updatePreview);
+
+    document.getElementById('font-size-name').addEventListener('input', updatePreview);
+    document.getElementById('font-size-heading').addEventListener('input', updatePreview);
+    document.getElementById('font-size-body').addEventListener('input', updatePreview);
+    document.getElementById('margin-size-slider').addEventListener('input', updatePreview);
+    document.getElementById('line-height-select').addEventListener('change', updatePreview);
+    document.getElementById('section-spacing-slider').addEventListener('input', updatePreview);
+    document.getElementById('paragraph-spacing-slider').addEventListener('input', updatePreview);
+    document.getElementById('divider-thickness-slider').addEventListener('input', updatePreview);
+    document.getElementById('divider-color-picker').addEventListener('input', updatePreview);
+    document.getElementById('has-dividers-checkbox').addEventListener('change', updatePreview);
+    document.getElementById('zoom-slider').addEventListener('input', updatePreview);
 
     // AI DEMO TRIGGERS
     document.querySelector('.btn-ai-suggest-summary').addEventListener('click', triggerAiSummary);
@@ -729,14 +739,47 @@ function updatePreview() {
     // Customization styles
     const template = document.getElementById('template-select').value;
     const font = document.getElementById('font-select').value;
-    const size = document.getElementById('font-size-select').value;
-    const margin = document.getElementById('margin-select').value;
-    const spacing = document.getElementById('spacing-select').value;
     const color = document.getElementById('color-picker').value;
 
-    // Reset classes
-    preview.className = `resume-paper template-${template} margin-${margin} size-${size} spacing-${spacing}`;
+    const fontSizeName = document.getElementById('font-size-name').value;
+    const fontSizeHeading = document.getElementById('font-size-heading').value;
+    const fontSizeBody = document.getElementById('font-size-body').value;
+    const marginSize = document.getElementById('margin-size-slider').value;
+    const lineHeight = document.getElementById('line-height-select').value;
+    const sectionSpacing = document.getElementById('section-spacing-slider').value;
+    const paragraphSpacing = document.getElementById('paragraph-spacing-slider').value;
+    const dividerThickness = document.getElementById('divider-thickness-slider').value;
+    const dividerColor = document.getElementById('divider-color-picker').value;
+    const hasDividers = document.getElementById('has-dividers-checkbox').checked;
+    const zoom = document.getElementById('zoom-slider').value;
+
+    // Update Slider Labels
+    document.getElementById('val-font-size-name').innerText = fontSizeName + 'px';
+    document.getElementById('val-font-size-heading').innerText = fontSizeHeading + 'px';
+    document.getElementById('val-font-size-body').innerText = fontSizeBody + 'px';
+    document.getElementById('val-margin-size').innerText = marginSize + ' in';
+    document.getElementById('val-section-spacing').innerText = sectionSpacing + 'px';
+    document.getElementById('val-paragraph-spacing').innerText = paragraphSpacing + 'px';
+    document.getElementById('val-divider-thickness').innerText = dividerThickness + 'px';
+    document.getElementById('val-zoom').innerText = zoom + '%';
+
+    // Reset classes and set styling variables
+    preview.className = `resume-paper template-${template}`;
+    if (!hasDividers) {
+        preview.classList.add('no-dividers');
+    }
+    preview.style.fontFamily = font;
     preview.style.setProperty('--theme-primary', color);
+    preview.style.setProperty('--font-name-size', fontSizeName + 'px');
+    preview.style.setProperty('--font-heading-size', fontSizeHeading + 'px');
+    preview.style.setProperty('--font-body-size', fontSizeBody + 'px');
+    preview.style.setProperty('--line-height', lineHeight);
+    preview.style.setProperty('--margin-size', marginSize + 'in');
+    preview.style.setProperty('--section-spacing', sectionSpacing + 'px');
+    preview.style.setProperty('--divider-thickness', dividerThickness + 'px');
+    preview.style.setProperty('--divider-color', dividerColor);
+    preview.style.setProperty('--paragraph-spacing', paragraphSpacing + 'px');
+    preview.style.transform = `scale(${zoom / 100})`;
 
     // Read general details
     const firstName = document.getElementById('firstName').value || 'John';
@@ -1446,12 +1489,22 @@ function compilePayload() {
     // Style variables
     const template = document.getElementById('template-select').value;
     const fontFamily = document.getElementById('font-select').value;
-    const fontSize = document.getElementById('font-size-select').value;
+    const fontSize = "medium";
     const primaryColor = document.getElementById('color-picker').value;
-    const lineSpacing = document.getElementById('spacing-select').value;
-    const pageMargins = document.getElementById('margin-select').value;
+    const lineSpacing = "normal";
+    const pageMargins = "normal";
     const pageSize = document.getElementById('page-size-select').value;
     const maxPages = document.getElementById('max-pages-select').value;
+
+    const fontSizeName = parseInt(document.getElementById('font-size-name').value);
+    const fontSizeHeading = parseInt(document.getElementById('font-size-heading').value);
+    const fontSizeBody = parseFloat(document.getElementById('font-size-body').value);
+    const lineHeight = parseFloat(document.getElementById('line-height-select').value);
+    const marginSize = parseFloat(document.getElementById('margin-size-slider').value);
+    const sectionSpacing = parseInt(document.getElementById('section-spacing-slider').value);
+    const dividerThickness = parseFloat(document.getElementById('divider-thickness-slider').value);
+    const dividerColor = document.getElementById('divider-color-picker').value;
+    const hasDividers = document.getElementById('has-dividers-checkbox').checked;
 
     const showSections = getVisibleSections().join(',');
     const sectionOrder = activeSectionsOrder.join(',');
@@ -1677,6 +1730,7 @@ function compilePayload() {
         dob, city, country, headline,
         linkedin, github, portfolio, website,
         template, fontFamily, fontSize, primaryColor, lineSpacing, pageMargins, pageSize, maxPages,
+        fontSizeName, fontSizeHeading, fontSizeBody, lineHeight, marginSize, sectionSpacing, dividerThickness, dividerColor, hasDividers,
         showSections, sectionOrder,
         education, experience, projects, skills, certifications, internships,
         publications, workshops, achievements, codingProfiles, languages, interests, references
@@ -1883,14 +1937,21 @@ function populateForm(resume) {
     document.getElementById('template-select').value = tempVal;
     const qSelect = document.getElementById('quick-template-select');
     if (qSelect) qSelect.value = tempVal;
-    document.getElementById('font-select').value = resume.fontFamily || 'Inter';
-    document.getElementById('font-size-select').value = resume.fontSize || 'medium';
+    document.getElementById('font-select').value = resume.fontFamily || "'Inter', sans-serif";
     document.getElementById('color-picker').value = resume.primaryColor || '#2563eb';
     document.getElementById('color-text-input').value = resume.primaryColor || '#2563eb';
-    document.getElementById('spacing-select').value = resume.lineSpacing || 'normal';
-    document.getElementById('margin-select').value = resume.pageMargins || 'normal';
     document.getElementById('page-size-select').value = resume.pageSize || 'a4';
     document.getElementById('max-pages-select').value = resume.maxPages || '2';
+
+    document.getElementById('font-size-name').value = (resume.fontSizeName !== undefined && resume.fontSizeName !== null) ? resume.fontSizeName : 26;
+    document.getElementById('font-size-heading').value = (resume.fontSizeHeading !== undefined && resume.fontSizeHeading !== null) ? resume.fontSizeHeading : 14;
+    document.getElementById('font-size-body').value = (resume.fontSizeBody !== undefined && resume.fontSizeBody !== null) ? resume.fontSizeBody : 10.5;
+    document.getElementById('line-height-select').value = (resume.lineHeight !== undefined && resume.lineHeight !== null) ? resume.lineHeight : '1.2';
+    document.getElementById('margin-size-slider').value = (resume.marginSize !== undefined && resume.marginSize !== null) ? resume.marginSize : 0.5;
+    document.getElementById('section-spacing-slider').value = (resume.sectionSpacing !== undefined && resume.sectionSpacing !== null) ? resume.sectionSpacing : 12;
+    document.getElementById('divider-thickness-slider').value = (resume.dividerThickness !== undefined && resume.dividerThickness !== null) ? resume.dividerThickness : 1.0;
+    document.getElementById('divider-color-picker').value = resume.dividerColor || '#d1d5db';
+    document.getElementById('has-dividers-checkbox').checked = (resume.hasDividers !== undefined && resume.hasDividers !== null) ? resume.hasDividers : true;
 
     // Clear dynamic blocks
     document.getElementById('education-list').innerHTML = '';

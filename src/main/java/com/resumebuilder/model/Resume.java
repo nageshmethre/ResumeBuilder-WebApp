@@ -69,6 +69,34 @@ public class Resume {
     @Column(name = "max_pages")
     private String maxPages = "2";
 
+    @Column(name = "font_size_name")
+    private Integer fontSizeName = 26;
+
+    @Column(name = "font_size_heading")
+    private Integer fontSizeHeading = 14;
+
+    @Column(name = "font_size_body")
+    private Double fontSizeBody = 10.5;
+
+    @Column(name = "line_height")
+    private Double lineHeight = 1.2;
+
+    @Column(name = "margin_size")
+    private Double marginSize = 0.5;
+
+    @Column(name = "section_spacing")
+    private Integer sectionSpacing = 12;
+
+    @Column(name = "divider_thickness")
+    private Double dividerThickness = 1.0;
+
+    @Column(name = "divider_color")
+    private String dividerColor = "#d1d5db";
+
+    @Column(name = "has_dividers")
+    private Boolean hasDividers = true;
+
+
     @Column(name = "show_sections", columnDefinition = "TEXT")
     private String showSections;
 
@@ -271,6 +299,33 @@ public class Resume {
 
     public String getMaxPages() { return maxPages; }
     public void setMaxPages(String maxPages) { this.maxPages = maxPages; }
+
+    public Integer getFontSizeName() { return fontSizeName; }
+    public void setFontSizeName(Integer fontSizeName) { this.fontSizeName = fontSizeName; }
+
+    public Integer getFontSizeHeading() { return fontSizeHeading; }
+    public void setFontSizeHeading(Integer fontSizeHeading) { this.fontSizeHeading = fontSizeHeading; }
+
+    public Double getFontSizeBody() { return fontSizeBody; }
+    public void setFontSizeBody(Double fontSizeBody) { this.fontSizeBody = fontSizeBody; }
+
+    public Double getLineHeight() { return lineHeight; }
+    public void setLineHeight(Double lineHeight) { this.lineHeight = lineHeight; }
+
+    public Double getMarginSize() { return marginSize; }
+    public void setMarginSize(Double marginSize) { this.marginSize = marginSize; }
+
+    public Integer getSectionSpacing() { return sectionSpacing; }
+    public void setSectionSpacing(Integer sectionSpacing) { this.sectionSpacing = sectionSpacing; }
+
+    public Double getDividerThickness() { return dividerThickness; }
+    public void setDividerThickness(Double dividerThickness) { this.dividerThickness = dividerThickness; }
+
+    public String getDividerColor() { return dividerColor; }
+    public void setDividerColor(String dividerColor) { this.dividerColor = dividerColor; }
+
+    public Boolean getHasDividers() { return hasDividers; }
+    public void setHasDividers(Boolean hasDividers) { this.hasDividers = hasDividers; }
 
     public String getShowSections() { return showSections; }
     public void setShowSections(String showSections) { this.showSections = showSections; }

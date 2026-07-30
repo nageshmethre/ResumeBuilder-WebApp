@@ -94,6 +94,17 @@ public class ResumeService {
         resume.setPageMargins(dto.getPageMargins() != null ? dto.getPageMargins() : "normal");
         resume.setPageSize(dto.getPageSize() != null ? dto.getPageSize() : "a4");
         resume.setMaxPages(dto.getMaxPages() != null ? dto.getMaxPages() : "2");
+
+        resume.setFontSizeName(dto.getFontSizeName() != null ? dto.getFontSizeName() : 26);
+        resume.setFontSizeHeading(dto.getFontSizeHeading() != null ? dto.getFontSizeHeading() : 14);
+        resume.setFontSizeBody(dto.getFontSizeBody() != null ? dto.getFontSizeBody() : 10.5);
+        resume.setLineHeight(dto.getLineHeight() != null ? dto.getLineHeight() : 1.2);
+        resume.setMarginSize(dto.getMarginSize() != null ? dto.getMarginSize() : 0.5);
+        resume.setSectionSpacing(dto.getSectionSpacing() != null ? dto.getSectionSpacing() : 12);
+        resume.setDividerThickness(dto.getDividerThickness() != null ? dto.getDividerThickness() : 1.0);
+        resume.setDividerColor(dto.getDividerColor() != null ? dto.getDividerColor() : "#d1d5db");
+        resume.setHasDividers(dto.getHasDividers() != null ? dto.getHasDividers() : true);
+
         resume.setShowSections(dto.getShowSections());
         resume.setSectionOrder(dto.getSectionOrder());
 
@@ -328,6 +339,17 @@ public class ResumeService {
         dto.setPageMargins(resume.getPageMargins());
         dto.setPageSize(resume.getPageSize());
         dto.setMaxPages(resume.getMaxPages());
+
+        dto.setFontSizeName(resume.getFontSizeName());
+        dto.setFontSizeHeading(resume.getFontSizeHeading());
+        dto.setFontSizeBody(resume.getFontSizeBody());
+        dto.setLineHeight(resume.getLineHeight());
+        dto.setMarginSize(resume.getMarginSize());
+        dto.setSectionSpacing(resume.getSectionSpacing());
+        dto.setDividerThickness(resume.getDividerThickness());
+        dto.setDividerColor(resume.getDividerColor());
+        dto.setHasDividers(resume.getHasDividers());
+
         dto.setShowSections(resume.getShowSections());
         dto.setSectionOrder(resume.getSectionOrder());
 

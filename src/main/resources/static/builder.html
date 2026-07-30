@@ -318,9 +318,13 @@
                         <div class="col-sm-6">
                             <label for="font-select" class="form-label-flat">Typography Font</label>
                             <select class="form-input-flat" id="font-select">
-                                <option value="Inter">Inter (Sans-Serif)</option>
-                                <option value="serif">Playfair Display (Serif)</option>
-                                <option value="monospace">JetBrains Mono (Monospace)</option>
+                                <option value="'Inter', sans-serif">Inter (Sans-Serif)</option>
+                                <option value="'Poppins', sans-serif">Poppins (Modern Sans)</option>
+                                <option value="'Roboto', sans-serif">Roboto (Clean Sans)</option>
+                                <option value="'Open Sans', sans-serif">Open Sans (Classic Sans)</option>
+                                <option value="'Calibri', sans-serif">Calibri (Elegant Sans)</option>
+                                <option value="'Playfair Display', Georgia, serif">Playfair Display (Serif)</option>
+                                <option value="'JetBrains Mono', monospace">JetBrains Mono (Monospace)</option>
                             </select>
                         </div>
                         <div class="col-sm-6">
@@ -329,30 +333,6 @@
                                 <input type="color" class="form-input-flat p-0 border-0" id="color-picker" value="#2563eb" style="width:40px; height:38px;">
                                 <input type="text" class="form-input-flat" id="color-text-input" value="#2563eb" style="max-width: 140px;">
                             </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <label for="font-size-select" class="form-label-flat">Font Size</label>
-                            <select class="form-input-flat" id="font-size-select">
-                                <option value="small">Small (Dense)</option>
-                                <option value="medium" selected>Medium (Standard)</option>
-                                <option value="large">Large (Comfortable)</option>
-                            </select>
-                        </div>
-                        <div class="col-sm-3">
-                            <label for="margin-select" class="form-label-flat">Page Margins</label>
-                            <select class="form-input-flat" id="margin-select">
-                                <option value="compact">Compact</option>
-                                <option value="normal" selected>Normal</option>
-                                <option value="large">Large</option>
-                            </select>
-                        </div>
-                        <div class="col-sm-3">
-                            <label for="spacing-select" class="form-label-flat">Line Spacing</label>
-                            <select class="form-input-flat" id="spacing-select">
-                                <option value="compact">Compact</option>
-                                <option value="normal" selected>Normal</option>
-                                <option value="large">Large</option>
-                            </select>
                         </div>
                         <div class="col-sm-3">
                             <label for="page-size-select" class="form-label-flat">Page Format</label>
@@ -368,7 +348,62 @@
                                 <option value="2" selected>Allow 2 Pages</option>
                             </select>
                         </div>
-                        
+
+                        <!-- Advanced Typography Sizes -->
+                        <div class="col-sm-4">
+                            <label for="font-size-name" class="form-label-flat d-flex justify-content-between">Name Size <span id="val-font-size-name" class="text-secondary small">26px</span></label>
+                            <input type="range" class="form-range" id="font-size-name" min="20" max="36" value="26">
+                        </div>
+                        <div class="col-sm-4">
+                            <label for="font-size-heading" class="form-label-flat d-flex justify-content-between">Heading Size <span id="val-font-size-heading" class="text-secondary small">14px</span></label>
+                            <input type="range" class="form-range" id="font-size-heading" min="11" max="20" value="14">
+                        </div>
+                        <div class="col-sm-4">
+                            <label for="font-size-body" class="form-label-flat d-flex justify-content-between">Body Size <span id="val-font-size-body" class="text-secondary small">10.5px</span></label>
+                            <input type="range" class="form-range" id="font-size-body" min="8" max="15" step="0.5" value="10.5">
+                        </div>
+
+                        <!-- Spacing & Margins -->
+                        <div class="col-sm-4">
+                            <label for="margin-size-slider" class="form-label-flat d-flex justify-content-between">Page Margins <span id="val-margin-size" class="text-secondary small">0.5 in</span></label>
+                            <input type="range" class="form-range" id="margin-size-slider" min="0.3" max="1.0" step="0.05" value="0.5">
+                        </div>
+                        <div class="col-sm-4">
+                            <label for="line-height-select" class="form-label-flat">Line Spacing</label>
+                            <select class="form-input-flat" id="line-height-select">
+                                <option value="1.0">1.0 (Compact)</option>
+                                <option value="1.15">1.15 (Standard)</option>
+                                <option value="1.25" selected>1.25 (Comfortable)</option>
+                                <option value="1.5">1.5 (Loose)</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-4">
+                            <label for="section-spacing-slider" class="form-label-flat d-flex justify-content-between">Section Spacing <span id="val-section-spacing" class="text-secondary small">12px</span></label>
+                            <input type="range" class="form-range" id="section-spacing-slider" min="4" max="24" step="1" value="12">
+                        </div>
+                        <div class="col-sm-4">
+                            <label for="paragraph-spacing-slider" class="form-label-flat d-flex justify-content-between">Paragraph Spacing <span id="val-paragraph-spacing" class="text-secondary small">4px</span></label>
+                            <input type="range" class="form-range" id="paragraph-spacing-slider" min="2" max="12" step="1" value="4">
+                        </div>
+
+                        <!-- Dividers -->
+                        <div class="col-sm-4">
+                            <label for="divider-thickness-slider" class="form-label-flat d-flex justify-content-between">Divider Thickness <span id="val-divider-thickness" class="text-secondary small">1.0px</span></label>
+                            <input type="range" class="form-range" id="divider-thickness-slider" min="0.5" max="3.0" step="0.5" value="1.0">
+                        </div>
+                        <div class="col-sm-4">
+                            <label for="divider-color-picker" class="form-label-flat">Divider Color</label>
+                            <input type="color" class="form-input-flat p-0 border-0" id="divider-color-picker" value="#d1d5db" style="width:100%; height:38px;">
+                        </div>
+                        <div class="col-sm-6 d-flex align-items-center gap-2">
+                            <input type="checkbox" id="has-dividers-checkbox" checked class="form-check-input" style="width: 20px; height: 20px;">
+                            <label for="has-dividers-checkbox" class="form-label-flat mb-0 fs-6">Show Section Divider Lines</label>
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="zoom-slider" class="form-label-flat d-flex justify-content-between">Live Preview Zoom <span id="val-zoom" class="text-secondary small">100%</span></label>
+                            <input type="range" class="form-range" id="zoom-slider" min="50" max="150" step="5" value="100">
+                        </div>
+
                         <div class="col-12 my-3"><hr class="text-muted"></div>
                         <h6 class="fw-bold text-dark mb-0">Reorder / Hide Sections</h6>
                         <p class="text-secondary small mb-2">Check box to display section, or use triggers to adjust alignment order.</p>
