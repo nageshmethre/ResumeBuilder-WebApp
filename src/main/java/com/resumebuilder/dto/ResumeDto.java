@@ -34,6 +34,7 @@ public class ResumeDto {
     private String address;
 
     private String summary;
+    private String headline;
 
     // New Personal Info
     private String dob;
@@ -161,6 +162,9 @@ public class ResumeDto {
     public void setSummary(String summary) {
         this.summary = summary;
     }
+
+    public String getHeadline() { return headline; }
+    public void setHeadline(String headline) { this.headline = headline; }
 
     public List<EducationDto> getEducation() {
         return education;

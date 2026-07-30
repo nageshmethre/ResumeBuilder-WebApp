@@ -33,6 +33,8 @@ public class Resume {
     @Column(columnDefinition = "TEXT")
     private String summary;
 
+    private String headline;
+
     // New Personal Details
     private String dob;
     private String city;
@@ -186,6 +188,9 @@ public class Resume {
     public void setSummary(String summary) {
         this.summary = summary;
     }
+
+    public String getHeadline() { return headline; }
+    public void setHeadline(String headline) { this.headline = headline; }
 
     public List<Education> getEducation() {
         return education;

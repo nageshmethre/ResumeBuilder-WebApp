@@ -73,6 +73,7 @@ public class ResumeService {
         resume.setPhone(dto.getPhone());
         resume.setAddress(dto.getAddress());
         resume.setSummary(dto.getSummary());
+        resume.setHeadline(dto.getHeadline());
 
         // Personal Info fields
         resume.setDob(dto.getDob());
@@ -306,6 +307,7 @@ public class ResumeService {
         dto.setPhone(resume.getPhone());
         dto.setAddress(resume.getAddress());
         dto.setSummary(resume.getSummary());
+        dto.setHeadline(resume.getHeadline());
 
         // Personal Info fields
         dto.setDob(resume.getDob());

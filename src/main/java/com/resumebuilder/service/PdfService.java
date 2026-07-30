@@ -161,11 +161,13 @@ public class PdfService {
             namePara.setAlignment(Element.ALIGN_CENTER);
             cell.addElement(namePara);
 
-            String title = (resume.getTitle() != null) ? resume.getTitle() : "";
-            Paragraph titlePara = new Paragraph(title.toUpperCase(), getFont(fontFamily, baseSize + 1, Font.BOLD, new Color(244, 244, 245)));
-            titlePara.setAlignment(Element.ALIGN_CENTER);
-            titlePara.setSpacingBefore(3);
-            cell.addElement(titlePara);
+            String title = (resume.getHeadline() != null) ? resume.getHeadline() : "";
+            if (!title.isEmpty()) {
+                Paragraph titlePara = new Paragraph(title.toUpperCase(), getFont(fontFamily, baseSize + 1, Font.BOLD, new Color(244, 244, 245)));
+                titlePara.setAlignment(Element.ALIGN_CENTER);
+                titlePara.setSpacingBefore(3);
+                cell.addElement(titlePara);
+            }
 
             bannerTable.addCell(cell);
             document.add(bannerTable);
@@ -183,8 +185,8 @@ public class PdfService {
             namePara.setAlignment(align);
             document.add(namePara);
 
-            if (resume.getTitle() != null && !resume.getTitle().isEmpty()) {
-                Paragraph titlePara = new Paragraph(resume.getTitle().toUpperCase(), titleFont);
+            if (resume.getHeadline() != null && !resume.getHeadline().isEmpty()) {
+                Paragraph titlePara = new Paragraph(resume.getHeadline().toUpperCase(), titleFont);
                 titlePara.setAlignment(align);
                 titlePara.setSpacingBefore(2);
                 document.add(titlePara);
@@ -740,8 +742,8 @@ public class PdfService {
         namePara.setSpacingAfter(4);
         sidebarCell.addElement(namePara);
 
-        if (resume.getTitle() != null && !resume.getTitle().isEmpty()) {
-            Paragraph titlePara = new Paragraph(resume.getTitle(), titleFont);
+        if (resume.getHeadline() != null && !resume.getHeadline().isEmpty()) {
+            Paragraph titlePara = new Paragraph(resume.getHeadline(), titleFont);
             titlePara.setSpacingAfter(10);
             sidebarCell.addElement(titlePara);
         }
