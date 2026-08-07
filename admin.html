@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Resume Builder</title>
+    <!-- Google Fonts & Bootstrap 5 -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+    <style>
+        .card-stat {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            transition: all 0.2s ease-in-out;
+        }
+        .card-stat:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border-color: var(--border-hover);
+        }
+    </style>
+</head>
+<body class="bg-light">
+
+    <div class="app-wrapper">
+        
+        <!-- Collapsible Left Sidebar -->
+        <aside class="app-sidebar" id="sidebar">
+            <div class="sidebar-brand">
+                <svg class="text-danger" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                <span class="sidebar-brand-text text-danger fw-bold">Admin Console</span>
+            </div>
+            
+            <ul class="sidebar-menu">
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="/dashboard.html">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                        <span class="sidebar-link-text">User Console</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="/certificate/index.html">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479L12 21l-6.825-4a12.083 12.083 0 01.665-6.479L12 14z"/></svg>
+                        <span class="sidebar-link-text">Certificates</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link active" href="/admin.html">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
+                        <span class="sidebar-link-text">Admin Panel</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="sidebar-footer">
+                <button class="btn-flat btn-flat-outline btn-sm w-100 py-1.5" id="sidebar-toggle-btn">
+                    <span class="sidebar-link-text">Collapse Menu</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Right Main Panel Container -->
+        <main class="app-container">
+            
+            <!-- Topbar Navigation -->
+            <header class="app-header">
+                <div class="breadcrumb-container">
+                    <span class="text-muted">Home</span>
+                    <span class="breadcrumb-separator">/</span>
+                    <span class="fw-medium">Admin Panel</span>
+                </div>
+                
+                <div class="header-actions">
+                    <div class="d-flex align-items-center gap-2">
+                        <div class="avatar-initials bg-danger text-white" id="user-avatar">A</div>
+                        <span class="text-secondary small fw-medium d-none d-sm-inline" id="user-greeting">Welcome, Admin</span>
+                    </div>
+                    <button class="btn-flat btn-flat-outline py-1.5 px-3 btn-sm text-danger border-0" id="logout-btn">Sign Out</button>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <div class="p-4" style="flex-grow: 1; overflow-y: auto;">
+                <div class="row align-items-center g-3 mb-4">
+                    <div class="col">
+                        <h4 class="fw-bold text-dark mb-1">System Management</h4>
+                        <p class="text-secondary small mb-0">Track platform users, monitor document counts, and manage registrations</p>
+                    </div>
+                </div>
+
+                <!-- Admin Alert Message Box -->
+                <div class="alert alert-danger d-none" id="alert-box"></div>
+                <div class="alert alert-success d-none" id="success-box"></div>
+
+                <!-- Stats Dashboard Cards -->
+                <div class="row g-4 mb-4">
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card-stat">
+                            <div class="text-secondary small fw-medium mb-1">Total Registered Users</div>
+                            <div class="fs-2 fw-bold text-dark" id="stat-users">0</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card-stat">
+                            <div class="text-secondary small fw-medium mb-1">Total Resumes Compiled</div>
+                            <div class="fs-2 fw-bold text-dark" id="stat-resumes">0</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Platform Users List Table -->
+                <div class="card border border-light-subtle shadow-sm">
+                    <div class="card-header bg-white border-bottom border-light-subtle py-3">
+                        <h5 class="fw-bold text-dark mb-0 fs-6">User Registry</h5>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0" style="min-width: 800px;">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>User ID</th>
+                                    <th>Username</th>
+                                    <th>Email Address</th>
+                                    <th>Assigned Roles</th>
+                                    <th>Resumes Created</th>
+                                    <th style="text-align:right; padding-right: 24px;">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="users-table-body">
+                                <tr>
+                                    <td colspan="6" class="text-center py-5 text-secondary">Loading system users...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Bootstrap & Admin Script -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/admin.js"></script>
+</body>
+</html>

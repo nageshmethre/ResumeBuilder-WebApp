@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In - Resume Builder</title>
+    <!-- Google Fonts & Bootstrap 5 -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: var(--bg-app);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+        .auth-card {
+            width: 100%;
+            max-width: 400px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="auth-card">
+        <!-- Logo Header -->
+        <div class="text-center mb-4">
+            <a href="/" class="d-inline-flex align-items-center text-decoration-none text-dark fw-bold fs-5">
+                <svg class="text-primary me-2" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+                Resume<span class="text-primary">Builder</span>
+            </a>
+            <h5 class="fw-bold text-dark mt-3 mb-1">Sign in to your account</h5>
+            <p class="text-muted small">Enter credentials to manage your resumes</p>
+        </div>
+
+        <!-- Card container -->
+        <div class="card-flat">
+            <div id="error-box" class="alert alert-danger d-none py-2 px-3 small border-0 text-danger bg-danger-subtle mb-3" role="alert"></div>
+
+            <form id="login-form">
+                <div class="form-group-flat">
+                    <label for="username" class="form-label-flat">Username</label>
+                    <input type="text" class="form-input-flat" id="username" required placeholder="Choose a username">
+                </div>
+                <div class="form-group-flat mb-4">
+                    <label for="password" class="form-label-flat">Password</label>
+                    <input type="password" class="form-input-flat" id="password" required placeholder="••••••••">
+                </div>
+                <button type="submit" class="btn-flat btn-flat-primary w-100 py-2.5 fw-semibold shadow-sm">Sign In</button>
+            </form>
+        </div>
+
+        <!-- Footer link -->
+        <div class="text-center mt-3">
+            <p class="text-muted small mb-0">Don't have an account? <a href="/register.html" class="text-primary fw-semibold text-decoration-none">Sign Up</a></p>
+        </div>
+    </div>
+
+    <!-- JS dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/auth.js"></script>
+</body>
+</html>

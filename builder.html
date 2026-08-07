@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Workspace - Resume Builder</title>
+    <!-- Google Fonts & Bootstrap 5 -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+    <style>
+        .workspace-layout {
+            display: flex;
+            height: calc(100vh - var(--header-height));
+            overflow: hidden;
+        }
+        .center-editor-pane {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 24px;
+            background-color: var(--bg-surface);
+        }
+    </style>
+</head>
+<body class="bg-light">
+
+    <!-- Sticky Header Topbar -->
+    <header class="app-header">
+        <div class="d-flex align-items-center gap-2">
+            <a class="btn-flat btn-flat-outline py-1.5 px-3 btn-sm" href="/dashboard.html" style="font-size:12.5px;">
+                « Dashboard
+            </a>
+            <a class="btn-flat btn-flat-outline py-1.5 px-3 btn-sm d-none" id="admin-back-btn" href="/admin.html" style="font-size:12.5px; border-color: #dc3545; color: #dc3545;">
+                Admin Panel
+            </a>
+            <input type="text" class="fw-bold text-dark border-0 p-0 fs-6 bg-transparent" style="max-width: 200px; outline:none;" id="title" value="My Software Developer Resume" required>
+        </div>
+        
+        <div class="d-flex align-items-center gap-2">
+            <span class="text-secondary small me-2" id="autosave-indicator" style="font-size:12.5px;">
+                Auto-saved
+            </span>
+            <button class="btn-flat btn-flat-secondary py-1.5 px-3 btn-sm" id="save-btn">Save Draft</button>
+            <button class="btn-flat btn-flat-primary py-1.5 px-3 btn-sm" id="pdf-btn">Download PDF</button>
+        </div>
+    </header>
+
+    <!-- 3-Panel Workspace Layout -->
+    <div class="workspace-layout">
+        
+        <!-- Left Panel: Sidebar Section Nav -->
+        <aside class="wizard-sidebar">
+            <a href="#" class="wizard-step-link active" data-section="personal-sec">
+                Contact details
+            </a>
+            <a href="#" class="wizard-step-link" data-section="summary-sec">
+                Professional Summary
+            </a>
+            <a href="#" class="wizard-step-link" data-section="skills-sec">
+                Technical Skills
+            </a>
+            <a href="#" class="wizard-step-link" data-section="experience-sec">
+                Work Experience
+            </a>
+            <a href="#" class="wizard-step-link" data-section="projects-sec">
+                Key Projects
+            </a>
+            <a href="#" class="wizard-step-link" data-section="education-sec">
+                Education History
+            </a>
+            <a href="#" class="wizard-step-link" data-section="extra-sec">
+                Extra Sections
+            </a>
+            <a href="#" class="wizard-step-link" data-section="customize-sec">
+                Style Customizer
+            </a>
+            <a href="#" class="wizard-step-link" data-section="ai-sec">
+                AI Assist & ATS
+            </a>
+        </aside>
+
+        <!-- Center Panel: Active Form Editor Area -->
+        <main class="center-editor-pane">
+            <div style="max-width: 600px; margin: 0 auto;">
+                
+                <div id="alert-box" class="alert alert-danger d-none py-2.5 px-4 mb-4 small border-0 text-danger bg-danger-subtle" role="alert"></div>
+                <div id="success-box" class="alert alert-success d-none py-2.5 px-4 mb-4 small border-0 text-success bg-success-subtle" role="alert"></div>
+
+                <!-- 1. PERSONAL INFORMATION -->
+                <div class="wizard-card" id="personal-sec">
+                    <h5 class="fw-bold text-dark mb-4">Contact Details</h5>
+                    <div class="row g-3">
+                        <div class="col-sm-6">
+                            <label for="firstName" class="form-label-flat">First Name</label>
+                            <input type="text" class="form-input-flat" id="firstName" required placeholder="John">
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="lastName" class="form-label-flat">Last Name</label>
+                            <input type="text" class="form-input-flat" id="lastName" required placeholder="Doe">
+                        </div>
+                        <div class="col-12">
+                            <label for="headline" class="form-label-flat">Professional Headline</label>
+                            <input type="text" class="form-input-flat" id="headline" placeholder="E.g., Senior Full Stack Dev">
+                        </div>
+                        <div class="col-sm-8">
+                            <label for="email" class="form-label-flat">Email Address</label>
+                            <input type="email" class="form-input-flat" id="email" required placeholder="john.doe@example.com">
+                        </div>
+                        <div class="col-sm-4">
+                            <label for="phone" class="form-label-flat">Phone Number</label>
+                            <input type="text" class="form-input-flat" id="phone" placeholder="+1 (555) 0192">
+                        </div>
+                        <div class="col-12">
+                            <label for="address" class="form-label-flat">Address</label>
+                            <input type="text" class="form-input-flat" id="address" placeholder="123 Science Park Road">
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="city" class="form-label-flat">City / State</label>
+                            <input type="text" class="form-input-flat" id="city" placeholder="San Jose">
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="country" class="form-label-flat">Country</label>
+                            <input type="text" class="form-input-flat" id="country" placeholder="United States">
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="dob" class="form-label-flat">Date of Birth</label>
+                            <input type="text" class="form-input-flat" id="dob" placeholder="E.g. Oct 12, 1995">
+                        </div>
+                        
+                        <div class="col-12 my-3"><hr class="text-muted"></div>
+                        <h6 class="fw-bold text-dark mb-2">Social & Links</h6>
+                        
+                        <div class="col-sm-6">
+                            <label for="linkedin" class="form-label-flat">LinkedIn Profile URL</label>
+                            <input type="text" class="form-input-flat" id="linkedin" placeholder="linkedin.com/in/username">
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="github" class="form-label-flat">GitHub Profile URL</label>
+                            <input type="text" class="form-input-flat" id="github" placeholder="github.com/username">
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="portfolio" class="form-label-flat">Portfolio Website</label>
+                            <input type="text" class="form-input-flat" id="portfolio" placeholder="myportfolio.dev">
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="website" class="form-label-flat">Personal Website</label>
+                            <input type="text" class="form-input-flat" id="website" placeholder="myblog.com">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. PROFESSIONAL SUMMARY -->
+                <div class="wizard-card d-none" id="summary-sec">
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <h5 class="fw-bold text-dark mb-0">Professional Summary</h5>
+                        <span class="text-muted small" id="summary-char-counter">0 chars</span>
+                    </div>
+                    <div class="form-group-flat mb-3">
+                        <textarea class="form-input-flat" id="summary" rows="7" placeholder="Write a short statement introducing your background, strengths, and goals..."></textarea>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <button type="button" class="btn-flat btn-flat-secondary btn-sm btn-ai-suggest-summary">Generate Summary</button>
+                        <button type="button" class="btn-flat btn-flat-outline btn-sm btn-ai-optimize-summary">Keyword Optimize</button>
+                    </div>
+                </div>
+
+                <!-- 3. TECHNICAL SKILLS -->
+                <div class="wizard-card d-none" id="skills-sec">
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <h5 class="fw-bold text-dark mb-0">Technical Skills</h5>
+                        <button type="button" class="btn-add-action" id="add-skill-btn">+ Add Skill</button>
+                    </div>
+                    <div id="skills-list" class="row g-2 mb-4">
+                        <!-- Skills items injected -->
+                    </div>
+                    <div class="d-flex gap-2">
+                        <button type="button" class="btn-flat btn-flat-secondary btn-sm btn-ai-suggest-skills">Recommends Technical Skills</button>
+                    </div>
+                </div>
+
+                <!-- 4. WORK EXPERIENCE -->
+                <div class="wizard-card d-none" id="experience-sec">
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <h5 class="fw-bold text-dark mb-0">Work History</h5>
+                        <button type="button" class="btn-add-action" id="add-exp-btn">+ Add Experience</button>
+                    </div>
+                    <div id="experience-list" class="grid-gap-24 mb-4">
+                        <!-- Experience items injected -->
+                    </div>
+                </div>
+
+                <!-- 5. KEY PROJECTS -->
+                <div class="wizard-card d-none" id="projects-sec">
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <h5 class="fw-bold text-dark mb-0">Key Projects</h5>
+                        <button type="button" class="btn-add-action" id="add-proj-btn">+ Add Project</button>
+                    </div>
+                    <div id="projects-list" class="grid-gap-24 mb-4">
+                        <!-- Project items injected -->
+                    </div>
+                </div>
+
+                <!-- 6. EDUCATION HISTORY -->
+                <div class="wizard-card d-none" id="education-sec">
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <h5 class="fw-bold text-dark mb-0">Education History</h5>
+                        <button type="button" class="btn-add-action" id="add-edu-btn">+ Add Education</button>
+                    </div>
+                    <div id="education-list" class="grid-gap-24 mb-4">
+                        <!-- Education items injected -->
+                    </div>
+                </div>
+
+                <!-- 7. EXTRA SECTIONS -->
+                <div class="wizard-card d-none" id="extra-sec">
+                    
+                    <!-- Certifications -->
+                    <div class="mb-5 border-bottom pb-4">
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <h6 class="fw-bold text-dark mb-0">Certifications</h6>
+                            <button type="button" class="btn-add-action" id="add-cert-btn">+ Add</button>
+                        </div>
+                        <div id="certifications-list" class="grid-gap-24"></div>
+                    </div>
+
+                    <!-- Internships -->
+                    <div class="mb-5 border-bottom pb-4">
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <h6 class="fw-bold text-dark mb-0">Internships</h6>
+                            <button type="button" class="btn-add-action" id="add-intern-btn">+ Add</button>
+                        </div>
+                        <div id="internships-list" class="grid-gap-24"></div>
+                    </div>
+
+                    <!-- Publications -->
+                    <div class="mb-5 border-bottom pb-4">
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <h6 class="fw-bold text-dark mb-0">Research Publications</h6>
+                            <button type="button" class="btn-add-action" id="add-pub-btn">+ Add</button>
+                        </div>
+                        <div id="publications-list" class="grid-gap-24"></div>
+                    </div>
+
+                    <!-- Workshops -->
+                    <div class="mb-5 border-bottom pb-4">
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <h6 class="fw-bold text-dark mb-0">Workshops</h6>
+                            <button type="button" class="btn-add-action" id="add-workshop-btn">+ Add</button>
+                        </div>
+                        <div id="workshops-list" class="row g-2"></div>
+                    </div>
+
+                    <!-- Coding profiles -->
+                    <div class="mb-5 border-bottom pb-4">
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <h6 class="fw-bold text-dark mb-0">Coding Profiles</h6>
+                            <button type="button" class="btn-add-action" id="add-coding-btn">+ Add</button>
+                        </div>
+                        <div id="coding-list" class="row g-2"></div>
+                    </div>
+
+                    <!-- Languages -->
+                    <div class="mb-5 border-bottom pb-4">
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <h6 class="fw-bold text-dark mb-0">Languages</h6>
+                            <button type="button" class="btn-add-action" id="add-lang-btn">+ Add</button>
+                        </div>
+                        <div id="languages-list" class="row g-2"></div>
+                    </div>
+
+                    <!-- Achievements -->
+                    <div class="mb-5 border-bottom pb-4">
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <h6 class="fw-bold text-dark mb-0">Achievements</h6>
+                            <button type="button" class="btn-add-action" id="add-ach-btn">+ Add</button>
+                        </div>
+                        <div id="achievements-list" class="grid-gap-24"></div>
+                    </div>
+
+                    <!-- References -->
+                    <div class="mb-5 border-bottom pb-4">
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <h6 class="fw-bold text-dark mb-0">References</h6>
+                            <button type="button" class="btn-add-action" id="add-ref-btn">+ Add</button>
+                        </div>
+                        <div id="references-list" class="grid-gap-24"></div>
+                    </div>
+
+                    <!-- Interests -->
+                    <div class="mb-0">
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <h6 class="fw-bold text-dark mb-0">Interests</h6>
+                            <button type="button" class="btn-add-action" id="add-interest-btn">+ Add</button>
+                        </div>
+                        <div id="interests-list" class="row g-2"></div>
+                    </div>
+
+                </div>
+
+                <!-- 8. STYLE CUSTOMIZER -->
+                <div class="wizard-card d-none" id="customize-sec">
+                    <h5 class="fw-bold text-dark mb-4">Style & Formatting</h5>
+                    <div class="row g-3">
+                        <div class="col-sm-6">
+                            <label for="template-select" class="form-label-flat">Active Layout</label>
+                            <select class="form-input-flat" id="template-select">
+                                <option value="classic">Classic Minimalist</option>
+                                <option value="modern">Modern Sidebar</option>
+                                <option value="professional">Professional</option>
+                                <option value="creative">Creative Splash</option>
+                                <option value="executive">Executive Serif</option>
+                                <option value="minimal">Minimal Monospace</option>
+                                <option value="compact">Compact & Dense</option>
+                                <option value="left-border">Left Accent Bar</option>
+                                <option value="bold-header">Bold Color Banner</option>
+                                <option value="academic">Extended Academic</option>
+                                <option value="elegant">Centered Serif</option>
+                                <option value="developer">Developer Monospace</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="font-select" class="form-label-flat">Typography Font</label>
+                            <select class="form-input-flat" id="font-select">
+                                <option value="'Inter', sans-serif">Inter (Sans-Serif)</option>
+                                <option value="'Poppins', sans-serif">Poppins (Modern Sans)</option>
+                                <option value="'Roboto', sans-serif">Roboto (Clean Sans)</option>
+                                <option value="'Open Sans', sans-serif">Open Sans (Classic Sans)</option>
+                                <option value="'Calibri', sans-serif">Calibri (Elegant Sans)</option>
+                                <option value="'Playfair Display', Georgia, serif">Playfair Display (Serif)</option>
+                                <option value="'JetBrains Mono', monospace">JetBrains Mono (Monospace)</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="color-picker" class="form-label-flat">Primary Theme Accent Color</label>
+                            <div class="d-flex gap-2">
+                                <input type="color" class="form-input-flat p-0 border-0" id="color-picker" value="#2563eb" style="width:40px; height:38px;">
+                                <input type="text" class="form-input-flat" id="color-text-input" value="#2563eb" style="max-width: 140px;">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <label for="page-size-select" class="form-label-flat">Page Format</label>
+                            <select class="form-input-flat" id="page-size-select">
+                                <option value="a4" selected>A4 Size</option>
+                                <option value="letter">US Letter</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-3">
+                            <label for="max-pages-select" class="form-label-flat">Page Constraint</label>
+                            <select class="form-input-flat" id="max-pages-select">
+                                <option value="1">Force 1 Page</option>
+                                <option value="2" selected>Allow 2 Pages</option>
+                            </select>
+                        </div>
+
+                        <!-- Advanced Typography Sizes -->
+                        <div class="col-sm-4">
+                            <label for="font-size-name" class="form-label-flat d-flex justify-content-between">Name Size <span id="val-font-size-name" class="text-secondary small">26px</span></label>
+                            <input type="range" class="form-range" id="font-size-name" min="20" max="36" value="26">
+                        </div>
+                        <div class="col-sm-4">
+                            <label for="font-size-heading" class="form-label-flat d-flex justify-content-between">Heading Size <span id="val-font-size-heading" class="text-secondary small">14px</span></label>
+                            <input type="range" class="form-range" id="font-size-heading" min="11" max="20" value="14">
+                        </div>
+                        <div class="col-sm-4">
+                            <label for="font-size-body" class="form-label-flat d-flex justify-content-between">Body Size <span id="val-font-size-body" class="text-secondary small">10.5px</span></label>
+                            <input type="range" class="form-range" id="font-size-body" min="8" max="15" step="0.5" value="10.5">
+                        </div>
+
+                        <!-- Spacing & Margins -->
+                        <div class="col-sm-4">
+                            <label for="margin-size-slider" class="form-label-flat d-flex justify-content-between">Page Margins <span id="val-margin-size" class="text-secondary small">0.5 in</span></label>
+                            <input type="range" class="form-range" id="margin-size-slider" min="0.3" max="1.0" step="0.05" value="0.5">
+                        </div>
+                        <div class="col-sm-4">
+                            <label for="line-height-select" class="form-label-flat">Line Spacing</label>
+                            <select class="form-input-flat" id="line-height-select">
+                                <option value="1.0">1.0 (Compact)</option>
+                                <option value="1.15">1.15 (Standard)</option>
+                                <option value="1.25" selected>1.25 (Comfortable)</option>
+                                <option value="1.5">1.5 (Loose)</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-4">
+                            <label for="section-spacing-slider" class="form-label-flat d-flex justify-content-between">Section Spacing <span id="val-section-spacing" class="text-secondary small">12px</span></label>
+                            <input type="range" class="form-range" id="section-spacing-slider" min="4" max="24" step="1" value="12">
+                        </div>
+                        <div class="col-sm-4">
+                            <label for="paragraph-spacing-slider" class="form-label-flat d-flex justify-content-between">Paragraph Spacing <span id="val-paragraph-spacing" class="text-secondary small">4px</span></label>
+                            <input type="range" class="form-range" id="paragraph-spacing-slider" min="2" max="12" step="1" value="4">
+                        </div>
+
+                        <!-- Dividers -->
+                        <div class="col-sm-4">
+                            <label for="divider-thickness-slider" class="form-label-flat d-flex justify-content-between">Divider Thickness <span id="val-divider-thickness" class="text-secondary small">1.0px</span></label>
+                            <input type="range" class="form-range" id="divider-thickness-slider" min="0.5" max="3.0" step="0.5" value="1.0">
+                        </div>
+                        <div class="col-sm-4">
+                            <label for="divider-color-picker" class="form-label-flat">Divider Color</label>
+                            <input type="color" class="form-input-flat p-0 border-0" id="divider-color-picker" value="#d1d5db" style="width:100%; height:38px;">
+                        </div>
+                        <div class="col-sm-6 d-flex align-items-center gap-2">
+                            <input type="checkbox" id="has-dividers-checkbox" checked class="form-check-input" style="width: 20px; height: 20px;">
+                            <label for="has-dividers-checkbox" class="form-label-flat mb-0 fs-6">Show Section Divider Lines</label>
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="zoom-slider" class="form-label-flat d-flex justify-content-between">Live Preview Zoom <span id="val-zoom" class="text-secondary small">100%</span></label>
+                            <input type="range" class="form-range" id="zoom-slider" min="50" max="150" step="5" value="100">
+                        </div>
+
+                        <div class="col-12 my-3"><hr class="text-muted"></div>
+                        <h6 class="fw-bold text-dark mb-0">Reorder / Hide Sections</h6>
+                        <p class="text-secondary small mb-2">Check box to display section, or use triggers to adjust alignment order.</p>
+                        <div class="col-12">
+                            <div class="list-group border rounded" id="section-visibility-list" style="border-radius: var(--radius-sm);"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 9. AI & ATS SCORE -->
+                <div class="wizard-card d-none" id="ai-sec">
+                    <!-- Progress meter -->
+                    <div class="card-flat p-4 mb-4">
+                        <div class="row align-items-center">
+                            <div class="col-auto">
+                                <div class="ats-score-ring" id="ats-score-ring" data-score="50" style="--score: 50;"></div>
+                            </div>
+                            <div class="col ms-2">
+                                <h6 class="fw-bold text-dark mb-1" id="ats-score-title">ATS Check Score</h6>
+                                <p class="text-secondary small mb-0" id="ats-score-desc">Calculated based on document structure requirements.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Details list -->
+                    <div class="card-flat p-4 mb-4">
+                        <h6 class="fw-bold text-dark mb-3">Layout Formatting Findings</h6>
+                        <ul class="list-group list-group-flush small" id="ats-suggestions-list">
+                            <!-- Injected -->
+                        </ul>
+                    </div>
+
+                    <!-- Backup / Restore REST API actions -->
+                    <div class="card-flat p-4">
+                        <h6 class="fw-bold text-dark mb-3">Backup Controls</h6>
+                        <div class="row g-2">
+                            <div class="col-6">
+                                <button class="btn-flat btn-flat-outline btn-sm w-100 py-2" id="btn-export-json">Export JSON</button>
+                            </div>
+                            <div class="col-6">
+                                <button class="btn-flat btn-flat-outline btn-sm w-100 py-2" id="btn-export-html">Export HTML</button>
+                            </div>
+                            <div class="col-12 mt-3">
+                                <label for="import-json-file" class="form-label-flat">Restore from JSON backup file</label>
+                                <input class="form-input-flat" type="file" id="import-json-file" accept=".json">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+
+        <!-- Right Panel: Live simulated A4 preview -->
+        <aside class="workspace-preview-pane d-none d-lg-block">
+            <div class="position-sticky top-0 w-100">
+                <!-- Preview quick settings toolbar -->
+                <div class="d-flex align-items-center justify-content-between bg-white border p-2 rounded mb-3 mx-auto shadow-sm" style="max-width:210mm; border-radius: var(--radius-sm);">
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="text-secondary small fw-bold" style="font-size:11px; letter-spacing:0.5px;">LAYOUT:</span>
+                        <select class="form-select form-select-sm py-1" style="width: 170px; font-size:12px;" id="quick-template-select">
+                            <option value="classic">Classic Minimalist</option>
+                            <option value="modern">Modern Sidebar</option>
+                            <option value="professional">Professional</option>
+                            <option value="creative">Creative Splash</option>
+                            <option value="executive">Executive Serif</option>
+                            <option value="minimal">Minimal Monospace</option>
+                            <option value="compact">Compact & Dense</option>
+                            <option value="left-border">Left Accent Bar</option>
+                            <option value="bold-header">Bold Color Banner</option>
+                            <option value="academic">Extended Academic</option>
+                            <option value="elegant">Centered Serif</option>
+                            <option value="developer">Developer Monospace</option>
+                        </select>
+                    </div>
+                    <div class="d-flex align-items-center gap-1">
+                        <button class="btn btn-sm btn-outline-secondary py-0.5 px-2" id="zoom-out-btn">-</button>
+                        <span class="text-secondary small fw-medium" id="zoom-text">100%</span>
+                        <button class="btn btn-sm btn-outline-secondary py-0.5 px-2" id="zoom-in-btn">+</button>
+                    </div>
+                </div>
+
+                <!-- Preview container -->
+                <div id="resume-preview-wrapper" style="transform-origin: top center; transition: transform 200ms;">
+                    <div class="resume-paper template-classic margin-normal size-medium spacing-normal" id="resume-preview"></div>
+                </div>
+            </div>
+        </aside>
+
+    </div>
+
+    <!-- JS dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/builder.js"></script>
+</body>
+</html>
